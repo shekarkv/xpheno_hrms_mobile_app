@@ -1,0 +1,7 @@
+{
+  "name": "xpheno",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
