@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Policy Documents</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <h3 class="ion-text-center" *ngIf="policy_data == ''">No Data Found!</h3>
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="ion-text-center" *ngFor="let data of policy_data;let id = index;">
+          <ion-card-content class="ion-text-left" >
+            <span class="span-small font-bold">{{data.policy_name}}</span> &nbsp;
+            <span class="span-small " slot="end" *ngIf="data.attachment != ''">  
+              <a target="new" (click)="DownloadPolicyPDF(data.attachment);">Download</a>
+              <ion-icon name="cloud-download-sharp"></ion-icon>
+            </span><br>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

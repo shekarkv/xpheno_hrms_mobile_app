@@ -1,0 +1,269 @@
+<ion-app>
+  <!-- Header -->
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button> 
+      </ion-buttons>
+      <ion-title>X-Connect</ion-title>
+    </ion-toolbar>
+  </ion-header> 
+ 
+  <ion-content class="" >
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+      <ion-refresher-content
+        pullingIcon="chevron-down-circle-outline"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid class="background-size" >  
+      <ion-row>    
+        <ion-col size="12" style="background-color: #F2F3F4;">  
+          <h2 class="text-size-m ion-text-wrap">&nbsp; Welcome  <span class="span-medium"><b>{{name}}</b></span></h2>
+           
+          <ion-card *ngIf="employee">
+            <!-- <ion-card-content> -->
+                <!-- <h2 class="text-size-xs ion-text-wrap" style="margin-left:10px;">
+                  <b>Client : {{client}}</b>
+                </h2> -->
+                <h2 class="text-size-xs ion-text-wrap margin-left" style="margin-left:10px;">
+                  <b>Work Location : {{location}}</b><br><br>
+                  <b>Shift Details : {{shift_data}}</b><br><br>
+                  <b>Work Location address : {{geo_address}}</b>
+                </h2>
+                <h2 class="text-size-xs ion-text-wrap margin-left" style="margin-left:10px;">
+                  <b>Reporting Manager : {{reporting_manager}}</b>
+                </h2>
+
+
+                  <b><h3 *ngIf="attendance_flag" class="text-size-xs ion-text-wrap" style="margin-left:10px;">{{this.check_in_msg}}</h3></b>
+                  <b><h3 *ngIf="attendance_flag" class="text-size-xs ion-text-wrap" style="margin-left:10px;">Checked in Address: {{this.checked_address}}</h3></b>
+            <!-- </ion-card-content>  -->
+              <ion-button class="default-button" style="float:right;margin-right:10px;margin-bottom:10px;" *ngIf="in_flag" (click)="LateCheckIn();">
+                <ion-icon name="log-in-outline"></ion-icon> &nbsp; Check IN
+              </ion-button>
+              
+              <ion-button class="default-button" style="float:right;margin-right:10px;margin-bottom:10px;" *ngIf="out_flag" (click)="appGetDateTimeOut();CheckOutSpinner();">
+                <ion-icon name="log-out-outline"></ion-icon> &nbsp; Check OUT
+              </ion-button>
+            <!-- </ion-card-content> -->
+          </ion-card>
+          
+          <ion-card *ngIf="trips_flag">
+            <!-- <ion-card-header>
+              <ion-card-title class="ion-text-center"><span class="span-medium">Trips</span></ion-card-title>
+            </ion-card-header> -->
+            <ion-card-content class="ion-text-center"> 
+              
+              <ion-button expand="block" size="medium"  shape="round" class="button-round " fill="outline" id="open-modal" *ngIf="!isTracking"> 
+                <ion-icon name="car-sport-sharp"></ion-icon>&nbsp;
+                Start Trip </ion-button>
+
+              <h2 *ngIf="isTracking" class="text-size-xs ion-text-wrap ion-text-left ion-padding-bottom">
+                <b>Your Trip Has Started From <span class="span-small font-bold">{{startingLocation}}</span>
+                On {{tripStartTime}}  At {{tripTime}}</b> 
+              </h2>
+
+              <ion-button  size="medium" class="default-button" id="open-pitStopModal" *ngIf="isTracking"> 
+                <ion-icon name="location-sharp"></ion-icon>&nbsp;
+                Add Pitstop </ion-button>
+
+              <ion-button size="medium" class="default-button" id="open-endTripModal"  (click)="isEndTripModalOpen=true;" *ngIf="isTracking"> 
+                <ion-icon name="man-sharp"></ion-icon>&nbsp;
+                End Trip </ion-button>
+
+              <!-- <ion-item lines="none" class="ion-text-right"> -->
+                <div>
+                  <span style="float:right;margin-top: 20px;margin-bottom: 20px;" class="span-small" (click) = "viewTripDetails();"> 
+                    View Details 
+                    <ion-icon name="caret-forward-sharp"></ion-icon>
+                  </span>
+              <!-- </ion-item> -->
+                </div>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-row class="ion-text-center" style="height:auto;background-color: white;border-radius:10px;">
+            <ion-col size="5" *ngFor="let data of dash_data" (click)="OpenEmployeeDashboard(data.type);" 
+            style="margin: 14px;border-radius:10px;background-color:#E5E7E9;">
+              <ion-badge  style="color: white;font-size:xx-large;text-align: right;margin:5px;">{{data.count}}</ion-badge>
+              <p style="font-size:small;color: black;">{{data.type}}</p>
+            </ion-col>
+          </ion-row>
+
+          <!-- <ion-col *ngIf="!employee">
+            <ion-card class="ion-padding ion-text-left " style="background-color:rgb(241, 249, 249)"  *ngFor="let data of dash_data">
+                <ion-row (click)="OpenEmployeeDashboard(data.type);">
+                  <ion-col size="2"><img width="100%" src="{{data.img}}"></ion-col>
+                  <ion-badge  style="color: white;font-size:xx-large;text-align: right;margin:5px;">{{data.count}}</ion-badge>
+                  <ion-col style="color: black;font-size:large;margin:5px;"><b>{{data.type}}</b></ion-col>
+                </ion-row>
+            </ion-card> 
+          </ion-col> -->
+        
+
+          <ion-list *ngIf="!employee">
+            <ion-label style="text-align:center;"><h2><b>Pending Approvals</b></h2></ion-label>
+            
+            <ion-item (click)="ApproveAttedance();" *ngFor="let data of attend_cnt">
+              <ion-icon name="calendar-number-sharp" size="small" color="success"></ion-icon>
+                &nbsp; 
+                <ion-label style="font-weight: normal;font-size: 13px;;">Approve Attendance</ion-label>
+              <ion-badge color="warning">{{data.count}}</ion-badge>
+            </ion-item> 
+
+            <ion-item *ngFor="let data of module_list; let id = index"
+              (click)="openModule(data.system_module_table_name,data.module_id,data.display_module_name);">
+              <ion-icon [ngStyle]={color:data.color}  style='font-size: 18px;' name={{data.icon_name}}></ion-icon>  &nbsp; <ion-label style="font-weight: normal;font-size: 13px;;">{{data.display_module_name}}</ion-label>
+              <ion-badge color="warning">{{data.count}}</ion-badge>
+            </ion-item>
+          </ion-list>
+
+          <ion-row class="ion-text-center" style="height:auto;">
+            <ion-col size="5" *ngIf="employee && attendance_appl == 'Yes'" (click)="MyAttendance();" style="border-radius:10px;margin:13px;background-color: white;">
+              <ion-icon name="calendar-sharp" size="large" color="success"></ion-icon>
+              <p>My Attendance</p>
+            </ion-col>
+            <ion-col size="5" *ngIf="employee && attendance_appl == 'Yes'" (click)="Regularization();" style="border-radius:10px;margin:13px;background-color:  white;">
+              <ion-icon name="git-compare-sharp" size="large" color="Tertiary"></ion-icon>
+              <p>Attendance Regularization</p>
+            </ion-col>
+            <ion-col size="5" *ngIf="employee && leave_appl == 'Yes'" (click)="ApplyLeave();" style="border-radius:10px;margin:13px;background-color: white;">
+              <ion-icon name="clipboard-sharp" size="large" color="warning"></ion-icon>
+              <p>Apply Leave</p>
+            </ion-col>
+            <ion-col size="5" *ngIf="employee && leave_appl == 'Yes'" (click)="LeaveBalance();" style="border-radius:10px;margin:13px;background-color: white;">
+              <ion-icon name="pie-chart-sharp" size="large" color="secondary"></ion-icon>
+              <p>Leave Balance</p>
+            </ion-col>
+            <ion-col size="5" *ngIf="employee" (click)="Holidays();" style="border-radius:10px;margin:13px;background-color:  white;">
+              <ion-icon name="airplane-sharp" size="large" color="danger"></ion-icon>
+              <p>Holidays</p>
+            </ion-col>
+            <ion-col size="5" *ngIf="employee" (click)="Payslip();" style="border-radius:10px;margin:13px;background-color: white;">
+              <ion-icon name="cash-sharp" size="large" style="color:#006600"></ion-icon>
+              <p>Payslip</p>
+            </ion-col>
+            <ion-col size="5" *ngIf="employee" (click)="IDCard();" style="border-radius:10px;margin:13px;background-color:  white;">
+              <ion-icon name="id-card-sharp" size="large" color="black"></ion-icon>
+              <p>ID Card</p>
+            </ion-col>
+            <!-- <ion-col size="5"  *ngIf="!employee" (click)="ApproveAttedance();" style="margin-left: 20px;
+            margin-right:10px; margin-top:10px; margin-bottom:10px;border-radius:10px;background-color: rgb(236, 244, 241);">
+              <ion-icon name="calendar-number-sharp" size="large" color="success"></ion-icon>
+              <p>Approve Attedance</p>
+            </ion-col> -->
+            <!-- <ion-col size="5"  *ngIf="!employee" (click)="Approvals();" style="padding:10px;margin: 12px;border-radius:10px;background-color: rgb(236, 244, 241);">
+              <ion-icon name="checkmark-done-sharp" size="large" color="warning"></ion-icon>
+              <p>Approvals</p>
+            </ion-col> -->
+          
+            <ion-col size="3"  *ngIf="!employee" (click)="AttedanceReg();" style="border-radius:10px;margin:13px;background-color: white;">
+              <ion-icon name="list-sharp" size="large" color="black"></ion-icon>
+              <p style="font-size:small">Attedance Register</p>
+            </ion-col>
+            <ion-col size="3"  *ngIf="!employee" (click)="LeaveReg();" style="border-radius:10px;margin:13px;background-color: white;">
+              <ion-icon name="newspaper-sharp" size="large" color="danger"></ion-icon>
+              <p style="font-size:small">Leave Register</p>
+            </ion-col>
+
+            <!-- <ion-col size="5"  *ngIf="!employee" (click)="ClaimsReg();" style="padding:10px;margin: 12px;border-radius:10px;background-color: rgb(236, 244, 241);">
+              <ion-icon name="swap-vertical-sharp" size="large" color="secondary"></ion-icon>
+              <p>Claims Register</p>
+            </ion-col> -->
+
+            <ion-col size="3"  *ngIf="!employee" (click)="ClaimsReg();" style="border-radius:10px;margin:13px;background-color: white;">
+              <ion-icon name="cash-sharp" size="large" color="success"></ion-icon>
+              <p style="font-size:small">Claims Register</p>
+            </ion-col> 
+
+            <ion-col size="5"  *ngIf="employee && fw_claim_appl == 'Yes'" (click)="claims();"style="border-radius:10px;margin:13px;background-color: white;">
+              <ion-icon name="receipt-sharp" size="large" color="success"></ion-icon>
+              <p>Claims</p>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <!-- <ion-button id="open-modal" expand="block">Open</ion-button> -->
+    <ion-modal *ngIf="!isTracking" trigger="open-modal" (willPresent)="onWillPresent()" (willDismiss)="onWillDismiss($event)">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="cancel();">
+                <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+            <ion-title>Starting trip</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <ion-item>
+            <ion-label class="text-size-xs" position="floating">Enter Trip Name</ion-label>
+            <ion-input type="text" placeholder="Trip name" [(ngModel)]="tripName"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label class="text-size-xs" position="floating">Enter Location Name</ion-label>
+            <ion-input type="text" placeholder="Location name" [(ngModel)]="startingLocation"></ion-input>
+          </ion-item>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+
+    <ion-modal *ngIf="isTracking" trigger="open-pitStopModal" (willDismiss)="onPitStopDismiss($event)">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="cancel();">
+                <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+            <ion-title>Add Pit Stop</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <ion-item>
+            <ion-label class="text-size-xs" position="floating">Enter Location Name</ion-label>
+            <ion-input type="text" placeholder="Location name" [(ngModel)]="locationName"></ion-input>
+          </ion-item>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+
+    <ion-modal *ngIf="isTracking" trigger="open-endTripModal" [isOpen]="isEndTripModalOpen"> 
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="cancelEndTrip();">
+                <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+            <ion-title>End Trip</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="confirmEndTrip()" [strong]="true">Confirm</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <ion-item>
+            <ion-label position="stacked">Enter location name</ion-label>
+            <ion-input type="text" placeholder="Location name" [(ngModel)]="locationName"></ion-input>
+          </ion-item>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </ion-content>
+</ion-app>

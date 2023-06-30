@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="nextpage()">
+        <ion-icon name="swap-vertical-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">On Duty Request</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-content>
+      <ion-grid class="ion-padding">
+        <ion-row>
+          <ion-col size="12">
+            <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+              <ion-label class="text-size-xs" position="floating">
+                Travel Type</ion-label>
+                <ion-select class="text-size-xs" multiple="false" interface="action-sheet" [(ngModel)]="travel_type">
+                  <ion-select-option >Local</ion-select-option>
+                  <ion-select-option >Domestic</ion-select-option>
+                  <ion-select-option >International</ion-select-option>
+              </ion-select>
+             </ion-item>
+
+             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+              <ion-label class="text-size-xs" position="floating">
+                Place of visit</ion-label>
+                <ion-input type="text" [(ngModel)]="place_of_visit"></ion-input>
+             </ion-item>
+
+             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+              <ion-label class="text-size-xs" position="floating">
+                Travel Start Date</ion-label> 
+                <ion-icon slot="end" name="calendar"></ion-icon> 
+                <ion-input
+                  value="{{ travel_start_date | date: 'dd/MM/YYYY' }}"
+                  id="travel_start_date"
+                  class="ion-text-left" 
+                ></ion-input>
+                <ion-modal trigger="travel_start_date" show-backdrop="false">
+                  <ng-template> 
+                    <ion-datetime
+                      [showDefaultButtons]="true"
+                      presentation="date"
+                      [(ngModel)]="travel_start_date" 
+                    ></ion-datetime>
+                  </ng-template>
+                </ion-modal> 
+              </ion-item> 
+
+              <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+                <ion-label class="text-size-xs" position="floating">
+                  Travel End Date</ion-label> 
+                  <ion-icon slot="end" name="calendar"></ion-icon> 
+                  <ion-input
+                    value="{{ travel_end_date | date: 'dd/MM/YYYY' }}"
+                    id="travel_end_date"
+                    class="ion-text-left" 
+                  ></ion-input>
+                  <ion-modal trigger="travel_end_date" show-backdrop="false">
+                    <ng-template> 
+                      <ion-datetime
+                        [showDefaultButtons]="true" 
+                        presentation="date"
+                        [(ngModel)]="travel_end_date" 
+                      ></ion-datetime>
+                    </ng-template>
+                  </ion-modal> 
+                </ion-item> 
+
+            <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+              <ion-label class="text-size-xs" position="floating">
+                Reason For Travel</ion-label>
+                <ion-input type="text" [(ngModel)]="reason_for_travel"></ion-input>
+             </ion-item>
+          </ion-col>
+
+          <ion-col size="12" class="ion-text-end">
+            <ion-button *ngIf="this.saveClicked == false" shape="round" class="button-round ion-margin-top"
+              fill="outline" (click)="finalSave();">
+              <ion-icon name="save-outline"></ion-icon>&nbsp;
+              <!-- <ion-icon slot="start" name="save"></ion-icon> -->
+              Save
+           </ion-button>
+           <ion-button *ngIf="this.saveClicked == true" shape="round" class="button-round ion-margin-top"
+           fill="outline"> Saving&nbsp;&nbsp;
+             <ion-spinner name="bubbles"></ion-spinner>
+           </ion-button>
+              
+           </ion-col>
+        </ion-row>
+      </ion-grid>
+  </ion-content>
+</ion-content>

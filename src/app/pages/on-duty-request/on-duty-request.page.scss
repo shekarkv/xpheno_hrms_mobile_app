@@ -1,0 +1,30 @@
+:host{
+    --cs-size-avatar: 80px;
+  }
+
+  
+  ion-button {
+    .active {
+      color: var(--cs-icon-color-primary, #00c0e8) !important;
+    }
+  }
+  
+  ion-modal{
+    --background: rgba(44,39,45,0.2);
+  
+    &::part(content) {
+      backdrop-filter: blur(6px);
+    }
+  
+    ion-content {
+      --background:transparent;
+  
+      --padding-top:25vh;
+      --padding-start:20px;
+      --padding-end:20px;
+  
+      ion-datetime{
+        border-radius: 8px;
+      }
+    }
+  }

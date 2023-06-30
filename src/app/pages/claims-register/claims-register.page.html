@@ -1,0 +1,118 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Claims Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-tabs>
+          <ion-tab-bar style="height: 70px;margin-top: 0px;" slot="top">
+          </ion-tab-bar>
+        </ion-tabs>
+
+        <ion-segment [(ngModel)]="tabs">
+          <ion-segment-button value="pending" (click)="GetPendingRegister();">
+            <ion-label>Pending</ion-label>
+            <ion-icon name="time-sharp"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button  value="approve" (click)="GetApproveRegister();">
+            <ion-label>Approved</ion-label>
+            <ion-icon name="checkmark-done-sharp"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button value="reject" (click)="GetRejectRegister();">
+            <ion-label>Rejected</ion-label>
+            <ion-icon name="ban-sharp"></ion-icon>
+          </ion-segment-button>
+        </ion-segment>
+
+         <!-- <ion-card class="ion-padding ion-text-center " style="margin:0%"> -->
+          <h2 class="span-small" style="text-align:center;"><b>Month</b></h2> 
+          <ion-input style="background-color:#eeeeef;" value="{{ d_date | date: 'MMMM-YYYY' }}"  id="d_date"  class="ion-text-center">
+            <ion-icon slot="end" size="medium" style="color:black" name="calendar"></ion-icon> 
+          </ion-input>
+            <ion-popover trigger="d_date" show-backdrop="false">
+              <ng-template> 
+                <ion-datetime
+                  [showDefaultButtons]="true" 
+                  presentation="month-year"
+                  [(ngModel)]="d_date"
+                  (ionChange)="GetMonthWiseData();"
+                ></ion-datetime>
+              </ng-template>
+            </ion-popover>
+        <!-- </ion-card>  -->
+          <br>
+
+
+        <div [ngSwitch]="tabs">
+          <ion-list *ngSwitchCase="'pending'">
+            <h3 class="ion-text-center" *ngIf="employee_data == '' || employee_data == null">No Data Found!</h3>
+            <ion-card  *ngFor="let data of employee_data;let id = index;" class="ion-padding ion-text-left " 
+              style="margin-top:5px;margin-bottom:5px;margin-left: 0%;margin-right: 0%;" >
+              <ion-label >
+                <ion-col *ngIf="!employee" style="color: black;">Name :<span *ngIf="!employee"  class="span-small font-bold "> {{data.employee}}</span><br/></ion-col>
+                <ion-col style="color: black;">Claim Type :</ion-col>
+                <ion-col><span class="span-small font-bold "> {{data.claim_type}}</span><br/></ion-col>
+                <ion-col style="color: black;">City Category :</ion-col>
+                <ion-col><span class="span-small font-bold ">{{data.city_category}}</span><br/></ion-col>
+                <ion-col style="color: black;">Claim Date :</ion-col>
+                <ion-col><span class="span-small font-bold ">{{data.claim_date}}</span><br/></ion-col>
+                <ion-col style="color: black;">Component :</ion-col>
+                <ion-col><span class="span-small font-bold ">{{data.component}}</span><br/></ion-col>
+                <ion-col style="color: black;">Amount :</ion-col>
+                <ion-col><span class="span-small font-bold ">{{data.amount}}</span><br/></ion-col>
+              </ion-label>
+            </ion-card>
+          </ion-list>
+
+          <ion-list *ngSwitchCase="'approve'">
+            <h3 class="ion-text-center" *ngIf="employee_data == '' || employee_data == null">No Data Found!</h3>
+            <ion-card  *ngFor="let data of employee_data;let id = index;" class="ion-padding ion-text-left " 
+              style="margin-top:5px;margin-bottom:5px;margin-left: 0%;margin-right: 0%;" >
+              <ion-label >
+                <ion-col *ngIf="!employee" style="color: black;">Employee :<span *ngIf="!employee"  class="span-small font-bold "> {{data.employee}}</span><br/></ion-col>
+                <ion-col style="color: black;">Claim Type :</ion-col>
+                <ion-col><span class="span-small font-bold "> {{data.claim_type}}</span><br/></ion-col>
+                <ion-col style="color: black;">City Category :</ion-col>
+                <ion-col><span class="span-small font-bold ">{{data.city_category}}</span><br/></ion-col>
+                <ion-col style="color: black;">Claim Date :</ion-col>
+                <ion-col><span class="span-small font-bold ">{{data.claim_date}}</span><br/></ion-col>
+                <ion-col style="color: black;">Component :</ion-col>
+                <ion-col><span class="span-small font-bold ">{{data.component}}</span><br/></ion-col>
+                <ion-col style="color: black;">Amount :</ion-col>
+                <ion-col><span class="span-small font-bold ">{{data.amount}}</span><br/></ion-col>
+              </ion-label>
+            </ion-card>
+          </ion-list>
+
+          <ion-list *ngSwitchCase="'reject'">
+            <h3 class="ion-text-center" *ngIf="employee_data == '' || employee_data == null">No Data Found!</h3>
+            <ion-card  *ngFor="let data of employee_data;let id = index;" class="ion-padding ion-text-left " 
+              style="margin-top:5px;margin-bottom:5px;margin-left: 0%;margin-right: 0%;" >
+              <ion-label >
+                <ion-col *ngIf="!employee" style="color: black;">Employee :<span *ngIf="!employee"  class="span-small font-bold "> {{data.employee}}</span><br/></ion-col>
+                <ion-col style="color: black;">Claim Type :</ion-col>
+                <ion-col><span class="span-small font-bold "> {{data.claim_type}}</span><br/></ion-col>
+                <ion-col style="color: black;">City Category :</ion-col>
+                <ion-col><span class="span-small font-bold ">{{data.city_category}}</span><br/></ion-col>
+                <ion-col style="color: black;">Claim Date :</ion-col>
+                <ion-col><span class="span-small font-bold ">{{data.claim_date}}</span><br/></ion-col>
+                <ion-col style="color: black;">Component :</ion-col>
+                <ion-col><span class="span-small font-bold ">{{data.component}}</span><br/></ion-col>
+                <ion-col style="color: black;">Amount :</ion-col>
+                <ion-col><span class="span-small font-bold ">{{data.amount}}</span><br/></ion-col>
+              </ion-label>
+            </ion-card>
+          </ion-list>
+         
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

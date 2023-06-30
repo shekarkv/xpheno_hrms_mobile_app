@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-buttons slot="start" *ngIf="!isModal">
+        <ion-back-button defaultHref="/home"></ion-back-button>
+      </ion-buttons>
+
+      <ion-button fill="clear" color="light" (click)="close()" *ngIf="isModal">
+        <ion-icon name="arrow-back" slot="start"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Monthly Attandence List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="ion-padding ion-text-center " style="margin:0%">
+    <span class="span-small"><b>Month</b></span> 
+    <ion-input style="background-color:#eeeeef;" value="{{ this.date | date: 'MMMM-YYYY' }}"  id="date"  class="ion-text-center">
+      <ion-icon slot="end" size="medium" style="color:black" name="calendar"></ion-icon> 
+    </ion-input>
+      <ion-popover trigger="date" show-backdrop="false">
+        <ng-template> 
+          <ion-datetime
+            [showDefaultButtons]="true" 
+            presentation="month-year"
+            [(ngModel)]="date" 
+            (ionChange)="getAttendanceList()"
+          ></ion-datetime>
+        </ng-template>
+      </ion-popover>
+  </ion-card> 
+  <br>
+
+  <h3 class="ion-text-center" *ngIf="employee_data == '' || employee_data == null">No Data Found!</h3>
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-list>
+          <ion-reorder-group disabled="false">
+            <ion-item lines="none" *ngFor="let data of employee_data;let id = index;">
+            
+              <div style="padding:0px;">
+                <span slot="start" class="span-medium font-bold">{{data.day_image}}</span>
+                <h4 slot="start" style="margin:0px;" class="span-small">{{data.day_of_week}} &nbsp;</h4>
+              </div>
+
+              <ion-label>
+                <h4 class="text-size-sm">{{data.in_time}} <br/>{{data.out_time}}  <br/></h4>
+                <div *ngIf="data.status_type; then approveBlock else rejectBlock"></div>
+                <ng-template #approveBlock> <h4 style="color:green;" class="text-size-sm"><b>{{data.status}}</b></h4></ng-template>
+                <ng-template #rejectBlock> <h4 style="color:red;" class="text-size-sm"><b>{{data.status}}</b></h4></ng-template>
+              </ion-label>
+            </ion-item>  
+          </ion-reorder-group>  
+        </ion-list> 
+      </ion-col>
+    </ion-row> 
+  </ion-grid>
+</ion-content>

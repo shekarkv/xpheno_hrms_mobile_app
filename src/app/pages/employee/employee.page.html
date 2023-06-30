@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="!in_flag">
+      <ion-button color="light" (click)="nextpage()">
+        <ion-icon name="create"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Employee Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+<ion-grid>
+  <ion-col size="12">
+    <ion-card class="ion-padding ion-text-center">
+      <ion-fab-button color="light" class="camera-btn" (click)="uploadProPic()">
+        <ion-icon name="camera" size="small"></ion-icon>
+      </ion-fab-button>
+      <ion-avatar> 
+        <ion-img src="{{this.photo}}" (click)="viewProfilePicture(this.photo)">{{login_real_name}}</ion-img> 
+      </ion-avatar>  
+     
+      <ion-card-content>
+        <ion-label position="stacked"></ion-label>
+        <h1 class="text-size-lg" >{{login_real_name}}</h1> 
+        <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+          <ion-icon name="mail-sharp"></ion-icon>&nbsp; {{email}}
+        </h2>
+        <h2 class="text-size-xs ion-text-wrap">
+          <ion-icon name="call-sharp"></ion-icon>&nbsp; {{mobile_no}}
+        </h2>   
+      </ion-card-content>
+    </ion-card>
+  </ion-col>
+
+  <!-- <ion-col size="12" class="ion-text-center"> -->
+    <ion-card class="ion-padding" id="emp_personal_card" *ngIf="!in_flag">
+      <ion-card-content class="ion-text-center">
+        <span class="span-medium">Personal Details</span>
+        
+            <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+                Father Name : {{father_name}}
+            </h2> 
+            <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+              Blood Group : {{blood_group}}
+            </h2> 
+        <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+          Address : {{pr_address}}
+        </h2>
+      </ion-card-content>
+    </ion-card>
+  <!-- </ion-col> -->
+
+  <!-- <ion-col size="12" class="ion-text-center"> -->
+    <ion-card class="ion-padding" id="emp_id_card" *ngIf="!in_flag">
+      <ion-card-content class="ion-text-center">
+        <span class="span-medium">Identity</span>
+        <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+         PAN : {{pan_number}}</h2>
+         <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+          Aadhaar : {{aadhar_number}}</h2>
+      </ion-card-content>
+    </ion-card>
+  <!-- </ion-col> -->
+
+   <!-- <ion-col size="12" class="ion-text-center"> -->
+    <ion-card class="ion-padding" id="emp_info_card" *ngIf="!in_flag">
+      <ion-card-content class="ion-text-center">
+        <span class="span-medium">Basic Info</span>
+        <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+         UAN : {{uan_number}}</h2>
+         <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+          ESIC : {{eisc_number}}</h2>
+          <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+           PF No : {{pf_number}}</h2>
+           <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+            Bank Acc : {{bank_account}}</h2>
+            <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+             DOB : {{g_doj}}</h2>
+      </ion-card-content>
+    </ion-card>
+  <!-- </ion-col> -->
+  
+</ion-grid>
+</ion-content>

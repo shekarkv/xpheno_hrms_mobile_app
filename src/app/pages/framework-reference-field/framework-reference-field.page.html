@@ -1,0 +1,136 @@
+<ion-content>
+
+  <ion-searchbar (ionChange)="getItems($event)" debounce="1000" placeholder="Type here to search..."></ion-searchbar>
+
+  <div *ngIf="data_list">
+    <ion-list>
+      <ion-item *ngFor="let data of data_list" (click)="submitItemData(data.internal_code,data.value)">
+        <ion-text text-wrap>{{data.value}}</ion-text>
+      </ion-item>
+    </ion-list>
+  </div> 
+
+  <div *ngIf="!data_list">
+    <ion-list>
+      <ion-item>
+        <ion-label style="font-weight: normal;">
+          <ion-row style="margin: 0;padding: 0;">
+            <ion-col style="margin: 0;padding: 0;" size="3">
+              <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            </ion-col>
+            <ion-col style="margin: 0;padding: 0;" size="9">
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: 0;padding: 0;">
+            <ion-col style="margin: 0;padding: 0;" size="3">
+              <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            </ion-col>
+            <ion-col style="margin: 0;padding: 0;" size="9">
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: 0;padding: 0;">
+            <ion-col style="margin: 0;padding: 0;" size="3">
+              <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            </ion-col>
+            <ion-col style="margin: 0;padding: 0;" size="9">
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label style="font-weight: normal;">
+          <ion-row style="margin: 0;padding: 0;">
+            <ion-col style="margin: 0;padding: 0;" size="3">
+              <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            </ion-col>
+            <ion-col style="margin: 0;padding: 0;" size="9">
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: 0;padding: 0;">
+            <ion-col style="margin: 0;padding: 0;" size="3">
+              <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            </ion-col>
+            <ion-col style="margin: 0;padding: 0;" size="9">
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: 0;padding: 0;">
+            <ion-col style="margin: 0;padding: 0;" size="3">
+              <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            </ion-col>
+            <ion-col style="margin: 0;padding: 0;" size="9">
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label style="font-weight: normal;">
+          <ion-row style="margin: 0;padding: 0;">
+            <ion-col style="margin: 0;padding: 0;" size="3">
+              <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            </ion-col>
+            <ion-col style="margin: 0;padding: 0;" size="9">
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: 0;padding: 0;">
+            <ion-col style="margin: 0;padding: 0;" size="3">
+              <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            </ion-col>
+            <ion-col style="margin: 0;padding: 0;" size="9">
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: 0;padding: 0;">
+            <ion-col style="margin: 0;padding: 0;" size="3">
+              <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            </ion-col>
+            <ion-col style="margin: 0;padding: 0;" size="9">
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label style="font-weight: normal;">
+          <ion-row style="margin: 0;padding: 0;">
+            <ion-col style="margin: 0;padding: 0;" size="3">
+              <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            </ion-col>
+            <ion-col style="margin: 0;padding: 0;" size="9">
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: 0;padding: 0;">
+            <ion-col style="margin: 0;padding: 0;" size="3">
+              <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            </ion-col>
+            <ion-col style="margin: 0;padding: 0;" size="9">
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: 0;padding: 0;">
+            <ion-col style="margin: 0;padding: 0;" size="3">
+              <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            </ion-col>
+            <ion-col style="margin: 0;padding: 0;" size="9">
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <!-- <ion-button size="small" expand="full" (click)="closeModal()">Close</ion-button> -->
+</ion-footer> 

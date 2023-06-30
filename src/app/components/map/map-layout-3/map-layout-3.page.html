@@ -1,0 +1,30 @@
+<!--Content -->
+<ion-grid class="ion-no-padding" *ngIf="viewEntered">
+  <ion-row *ngIf="data != null">
+    <ion-col size="12">
+      <agm-map *ngIf="data.map != null"
+        [latitude]="data.map.lat"
+        [longitude]="data.map.lng" 
+        [zoom]="data.map.zoom"
+        [mapTypeControl]="data.map.mapTypeControl"
+        [streetViewControl]="data.map.streetViewControl">
+        <!-- <agm-marker *ngFor="let marker of locations"
+        [latitude]="marker.lat"
+        [longitude]="marker.lng"
+        [label]="marker.label" >
+        <agm-info-window>
+          <div>
+            {{marker.description}} 
+          </div>
+        </agm-info-window>
+        </agm-marker> -->
+        <agm-direction 
+            [origin]="data.origin" 
+            [destination]="data.destination"
+            [waypoints]="data.waypoints"
+          > 
+          </agm-direction>
+      </agm-map>
+    </ion-col>
+  </ion-row>
+</ion-grid>   

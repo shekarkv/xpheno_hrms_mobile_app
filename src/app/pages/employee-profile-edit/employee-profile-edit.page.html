@@ -1,0 +1,224 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Edit Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-padding"> 
+    <ion-row>
+      <ion-col size="12">
+        <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+         <ion-label class="text-size-xs" position="floating">
+           Employee</ion-label>
+           <ion-input type="text" [(ngModel)]="name" readonly></ion-input>
+        </ion-item>
+
+        <ion-col size="12" class="ion-text-center">
+         <!-- <ion-card class="ion-padding">
+           <ion-card-content class="ion-text-center"> -->
+             <h2 class="span-medium"><u>Personal</u></h2>
+
+             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+               <ion-label class="text-size-xs" position="floating">
+                 Mobile</ion-label> 
+                 <ion-input type="text" [(ngModel)]="mobile"></ion-input>
+              </ion-item>
+
+             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+               <ion-label class="text-size-xs" position="floating">
+                 Marital Status</ion-label>
+                 <ion-select class="text-size-xs" multiple="false" interface="action-sheet" [(ngModel)]="marital_status">
+                   <ion-select-option >MARRIED</ion-select-option>
+                   <ion-select-option >UN-MARRIED</ion-select-option>
+                   <ion-select-option >WIDOW</ion-select-option>
+                   <ion-select-option >WIDOWER</ion-select-option>
+                   <ion-select-option >DIVORCEE</ion-select-option>
+               </ion-select>
+              </ion-item>
+              
+              <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+               <ion-icon slot="end" name="calendar"></ion-icon> 
+               <ion-label class="text-size-xs" position="floating">
+                 Anniversary</ion-label> 
+                 <ion-input
+                   value="{{ anniversary | date: 'dd/MM/YYYY' }}"
+                   id="anniversary" placeholder="Anniversary"
+                   class="ion-text-left" 
+                 ></ion-input>
+                 <ion-popover trigger="anniversary" show-backdrop="false">
+                   <ng-template> 
+                     <ion-datetime
+                       presentation="date"
+                       [(ngModel)]="anniversary" 
+                       [showDefaultButtons]="true" 
+                     ></ion-datetime>
+                   </ng-template>
+                 </ion-popover>
+             </ion-item> 
+              
+             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+               <ion-label class="text-size-xs" position="floating">
+                 Bank Name</ion-label>
+                 <ion-input type="text" [(ngModel)]="bank_name"></ion-input>
+              </ion-item>
+              
+             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+               <ion-label class="text-size-xs" position="floating">
+                 Bank Account</ion-label>
+                 <ion-input type="text" [(ngModel)]="bank_account"></ion-input>
+              </ion-item>
+              
+             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+               <ion-label class="text-size-xs" position="floating">
+                 Bank IFSC Code</ion-label>
+                 <ion-input type="text" [(ngModel)]="bank_ifsc_code"></ion-input>
+              </ion-item>
+              
+             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+               <ion-label class="text-size-xs" position="floating">
+                 Bank Branch</ion-label>
+                 <ion-input type="text" [(ngModel)]="bank_branch"></ion-input>
+              </ion-item>
+           <!-- </ion-card-content>
+         </ion-card> -->
+       </ion-col>
+        
+        <ion-col size="12" class="ion-text-center">
+         <!-- <ion-card class="ion-padding">
+           <ion-card-content class="ion-text-center"> -->
+             <h2 class="span-medium"><u>Present Address</u></h2>
+
+             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+               <ion-label class="text-size-xs" position="floating">
+                 Address</ion-label>
+                 <ion-input type="text" [(ngModel)]="pr_address"></ion-input>
+              </ion-item>
+              
+             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+               <ion-label class="text-size-xs" position="floating">
+                 PIN</ion-label>
+                 <ion-input type="text" [(ngModel)]="pr_pin"></ion-input>
+              </ion-item>
+
+             <ion-item (click)="getCityReferenceData();"  class="text-size-xs ion-text-wrap ion-text-left">
+              <ion-label class="text-size-xs" position="floating">
+                City</ion-label>
+                <ion-input type="text" [(ngModel)]="txt_ref_schema_pr_city"></ion-input>
+                <ion-icon slot="end" color="black" name="search" size="small" class="button-round ion-margin-top"
+                fill="outline">
+                </ion-icon>
+             </ion-item>
+
+             <ion-item (click)="getStateReferenceData();"  class="text-size-xs ion-text-wrap ion-text-left">
+              <ion-label class="text-size-xs" position="floating">
+                State</ion-label>
+                <ion-input type="text" [(ngModel)]="txt_ref_schema_pr_state"></ion-input>
+                <ion-icon slot="end" color="black" name="search" size="small" class="button-round ion-margin-top"
+                fill="outline">
+                </ion-icon>
+             </ion-item>
+
+             <ion-item (click)="getCountryReferenceData();"  class="text-size-xs ion-text-wrap ion-text-left">
+              <ion-label class="text-size-xs" position="floating">
+                Country</ion-label>
+                <ion-input type="text" [(ngModel)]="txt_ref_schema_pr_country"></ion-input>
+                <ion-icon slot="end" color="black" name="search" size="small" class="button-round ion-margin-top"
+                fill="outline">
+                </ion-icon>
+             </ion-item>
+           <!-- </ion-card-content>
+         </ion-card> -->
+       </ion-col>
+
+       <ion-col size="12" class="ion-text-center">
+         <!-- <ion-card class="ion-padding"> -->
+           <!-- <ion-card-content class="ion-text-center"> -->
+             <h2 class="span-medium"><u>Emergency Contact</u></h2>
+             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+               <ion-label class="text-size-xs" position="floating">
+                 Emergency Contact Name</ion-label>
+                 <ion-input type="text" [(ngModel)]="emergency_contact_name"></ion-input>
+              </ion-item>
+              
+             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+               <ion-label class="text-size-xs" position="floating">
+                 Relation</ion-label>
+                 <ion-select class="text-size-xs" multiple="false" interface="action-sheet" [(ngModel)]="ec_relation">
+                   <ion-select-option >Spouse</ion-select-option>
+                   <ion-select-option >Father</ion-select-option>
+                   <ion-select-option >Mother</ion-select-option>
+                   <ion-select-option >Son</ion-select-option>
+                   <ion-select-option >Daughter</ion-select-option>
+                   <ion-select-option >Friend</ion-select-option>
+                   <ion-select-option >Uncle</ion-select-option>
+                   <ion-select-option >aunt</ion-select-option>
+                   <ion-select-option >Neighbor</ion-select-option>
+                   <ion-select-option >Grandparent</ion-select-option>
+               </ion-select>
+              </ion-item>
+              
+             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+               <ion-label class="text-size-xs" position="floating">
+                 Emergency Phone</ion-label>
+                 <ion-input type="text" [(ngModel)]="ec_phone"></ion-input>
+              </ion-item>
+              
+             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+               <ion-label class="text-size-xs" position="floating">
+                 Emergency Mail</ion-label>
+                 <ion-input type="text" [(ngModel)]="ec_mail"></ion-input>
+              </ion-item>
+                
+             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+               <ion-label class="text-size-xs" position="floating">
+                 Address</ion-label>
+                 <ion-input type="text" [(ngModel)]="ec_address"></ion-input>
+              </ion-item>
+
+              <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+                <ion-label class="text-size-xs" position="floating">
+                 Pincode</ion-label>
+                  <ion-input type="text" [(ngModel)]="ec_pincode"></ion-input>
+               </ion-item>
+
+              <ion-item (click)="getEcCityReferenceData();"  class="text-size-xs ion-text-wrap ion-text-left">
+                <ion-label class="text-size-xs" position="floating">
+                  City</ion-label>
+                  <ion-input type="text" [(ngModel)]="txt_ref_schema_ec_city"></ion-input>
+                  <ion-icon slot="end" color="black" name="search" size="small" class="button-round ion-margin-top"
+                  fill="outline">
+                  </ion-icon>
+               </ion-item>
+
+               <ion-item (click)="getEcStateReferenceData();"  class="text-size-xs ion-text-wrap ion-text-left">
+                <ion-label class="text-size-xs" position="floating">
+                  State</ion-label>
+                  <ion-input type="text" [(ngModel)]="txt_ref_schema_ec_state"></ion-input>
+                  <ion-icon slot="end" color="black" name="search" size="small" class="button-round ion-margin-top"
+                  fill="outline">
+                  </ion-icon>
+               </ion-item>
+           <!-- </ion-card-content>
+         </ion-card> -->
+       </ion-col>
+       
+       </ion-col>
+        <ion-col size="12" class="ion-text-end">
+          <ion-button *ngIf="this.saveClicked == false" shape="round" class="button-round ion-margin-top"
+            fill="outline" (click)="Save();">
+            <!-- <ion-icon slot="start" name="save"></ion-icon> -->
+            Save
+         </ion-button>
+    
+         <ion-button *ngIf="this.saveClicked == true" shape="round" class="button-round ion-margin-top"
+         fill="outline"> Saving&nbsp;&nbsp;
+           <ion-spinner name="bubbles"></ion-spinner>
+         </ion-button>
+        </ion-col>
+    </ion-row>  
+  </ion-grid>
+</ion-content>

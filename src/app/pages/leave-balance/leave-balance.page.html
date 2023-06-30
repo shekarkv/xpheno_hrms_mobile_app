@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Leave balance</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <h3 class="ion-text-center" *ngIf="leave_balance == '' || leave_balance == null">No Data Found!</h3>
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="ion-text-center" *ngFor="let data of leave_balance;let id = index;"> 
+          <ion-card-content class="ion-text-left" (click)="OpenLeaveDetailsForLeaveType(data.leave_int_code,data.short_name);">
+            <span class="span-small font-bold">{{data.short_name}}</span>
+            <ion-item class="transparent ion-no-padding" lines="none">
+              <ion-label> 
+                <h2 class="text-size-xs"><b>Opening Balance: {{data.ob}}</b></h2>
+                <h2 class="text-size-xs" ><b>Leaves Earned: {{data.add_leaves_per_month}}</b></h2>
+                <h2 class="text-size-xs"><b>Total Leaves Taken: {{data.total_leaves_taken}}</b></h2>
+                 <h2 class="text-size-xs" ><b>Closing Balance: {{data.cb}}</b></h2>
+                <!-- <div class="clearfix"></div> -->
+              </ion-label>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row> 
+  </ion-grid>
+</ion-content>

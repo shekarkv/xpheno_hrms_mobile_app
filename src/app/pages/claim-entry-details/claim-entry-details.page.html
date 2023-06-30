@@ -1,0 +1,127 @@
+<ion-header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons> -->
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-padding">
+  <ion-row>
+  <ion-col size="12">
+
+  <ion-item (click)="getComponentReferenceData();" class="text-size-xs ion-text-wrap ion-text-left">
+    <ion-label class="text-size-xs" position="floating">
+      Component</ion-label>
+      <ion-input type="text" [(ngModel)]="txt_ref_schema_component"></ion-input>
+      <ion-icon slot="end" color="black" name="search" size="small" class="button-round ion-margin-top"
+      fill="outline">
+      </ion-icon>
+    </ion-item>
+
+
+  <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+    <ion-label class="text-size-xs" position="floating">
+      Expense Date</ion-label>
+    <ion-icon slot="end" name="calendar"></ion-icon> 
+      <ion-input
+        value="{{ claim_date | date: 'dd/MM/YYYY' }}"
+        id="claim_date"
+        class="ion-text-left"
+        (ionFocus)="ClaimCoponentConfiguration();"
+        (ionChange)="GetTripKMs();"
+      ></ion-input>
+      <ion-popover trigger="claim_date" show-backdrop="false">
+        <ng-template> 
+          <ion-datetime
+            [showDefaultButtons]="true" 
+            presentation="date"
+            [(ngModel)]="claim_date" 
+          ></ion-datetime>
+        </ng-template>
+      </ion-popover>
+  </ion-item> 
+  
+   <ion-item class="text-size-xs ion-text-wrap ion-text-left" *ngIf="show_km" (ionBlur)="CalcKMAmont();" >
+    <ion-label class="text-size-xs" position="floating">
+      Kilometers</ion-label>
+      <ion-input type="number" [(ngModel)]="kilometers" [disabled]="isEnabled"></ion-input> 
+   </ion-item> 
+
+   <ion-item class="text-size-xs ion-text-wrap ion-text-left" *ngIf="show_place">
+    <ion-label class="text-size-xs" position="floating">
+      From Place</ion-label>
+      <ion-input type="text" [(ngModel)]="from_place"></ion-input> 
+   </ion-item>
+
+   <ion-item class="text-size-xs ion-text-wrap ion-text-left" *ngIf="show_place">
+    <ion-label class="text-size-xs" position="floating">
+      To Place</ion-label>
+      <ion-input type="text" [(ngModel)]="to_place"></ion-input> 
+   </ion-item>
+
+   <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+    <ion-label class="text-size-xs" position="floating">
+      Amount</ion-label>
+      <ion-input type="text" [(ngModel)]="amount" [disabled]="isEnabled"></ion-input> 
+   </ion-item>
+
+   <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+    <ion-label class="text-size-xs" position="floating">
+      Remarks</ion-label>
+      <ion-input type="text" [(ngModel)]="remarks"></ion-input> 
+   </ion-item>
+
+   <ion-item class="text-size-xs ion-text-wrap ion-text-center" *ngIf="show_attach">
+    Attachment
+    <ion-fab horizontal="end" *ngIf="this.items_clicked == false"> 
+      <ion-fab-button size="small">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="start">
+        <ion-fab-button (click)="clickImage();">
+          <ion-icon name="camera-sharp"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button  (click)="selectFromGallery();">
+          <ion-icon name="images-sharp"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button (click)="fileFunc()">
+          <ion-icon name="document-attach-sharp"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+    </ion-fab> 
+  </ion-item> 
+
+  <ion-grid *ngIf="this.attachment1 != ''">
+    <ion-row>
+      <ion-col>
+        <ion-avatar>
+          <img src="{{this.attachmentBase64}}" *ngIf=" this.file_type == 'img'" (click)="chooseImage()">
+          <img src="assets/imgs/file.png" *ngIf=" this.file_type == 'doc'" (click)="OpenNativeFileDownload(this.attachmentBase64);chooseImage()"> 
+        </ion-avatar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  </ion-col>
+
+      <ion-col>
+        <ion-button style="float:right;" (click)="SaveClaimDetails()" shape="round" fill="outline" >
+          <ion-icon shape="round" slot="start" name="save"></ion-icon>
+          ADD
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+
+
+
+
+

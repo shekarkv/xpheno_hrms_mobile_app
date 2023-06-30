@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="DownloadYTDPayslipPDF();">
+        <ion-icon name="document-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>YTD Statement</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="ion-padding ion-text-center " style="margin:0%">
+          <span class="span-small"><b>Financial Year</b></span> 
+            <ion-select value="{{SelectedYearIdValue}}"  [(ngModel)]="fin_year"   style="background-color:#eeeeef;" 
+            (ionChange)="onSelectChangefn($event);" interface="action-sheet">
+              <ion-select-option *ngFor="let data of date_select" [value]="data.internal_code">{{data.year_code}} 
+              </ion-select-option>
+            </ion-select>
+        </ion-card>
+        <br>
+      
+        <ion-card class="ion-padding ion-text-left " style="margin:0%" >
+          <ion-row  *ngFor="let data of header;">
+            <ion-col size="2" style="color: black;">{{data.label}}</ion-col>
+            <ion-col size="1" style="color: black;">:</ion-col>
+            <ion-col><span class="span-small font-bold ">{{data.value}}</span><br/></ion-col>
+          </ion-row>
+        </ion-card>
+        <br>
+
+        <h3 class="ion-text-center" *ngIf="ytd_data == '' || ytd_data == null">No Data Found!</h3>
+
+        <ion-card class="ion-text-left "(click)="OpenPaySlipPage(data.d_date);" *ngFor="let data of ytd_data;let id = index;" 
+          style="margin: 4px;padding-top:10px;padding-bottom: 10px;">
+          <ion-list>
+            <!-- <ion-reorder-group disabled="false"> -->
+              <ion-item lines="none" >
+                <div style="padding:0px;margin:0px;">
+                  <span slot="start" style="margin:0px;" class="span-medium font-bold">{{data.month}}  &nbsp; &nbsp;&nbsp;</span>
+                  <h4 slot="start" style="margin:0px;" class="span-small">{{data.year}}  &nbsp; &nbsp;&nbsp;</h4>
+                </div>
+
+                <ion-label style="margin:0px;padding-right:10px;">
+                  <h4 class="text-size-m ion-text-right" > <b>Earnings &nbsp;&nbsp; &nbsp;  {{data.total_earning}} </b></h4> 
+                  <h4 style="color:red;" class="text-size-m ion-text-right"><b>  Deductions &nbsp;&nbsp;{{data.total_deduction}}</b></h4> 
+                  <h4 style="color:green;" class="text-size-m ion-text-right"><b>Net Pay &nbsp; &nbsp; &nbsp;  {{data.net_pay}}</b></h4>
+                </ion-label>
+              </ion-item>  
+            <!-- </ion-reorder-group>   -->
+          </ion-list> 
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

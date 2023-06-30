@@ -1,28 +1,72 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
-      <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+    <ion-menu side="start" contentId="main-content" type="overlay">
+      
+      <ion-header class="background-size" [ngStyle]="{'background-image': 'url(' + headerMenuItem.background + ')'}">
+    <ion-avatar>
+      <img src="{{this.photo}}" alt=""> <br/>
+    </ion-avatar> 
+      <ion-item class="transparent ion-text-center" lines="none">
+        <ion-label class="ion-text-center" style="padding-top: 12%">  
+            <div class="clearfix"></div>
+            {{profile_name}} 
+        </ion-label>
+      </ion-item>
+  </ion-header> 
+  <!-- Content -->
+  <ion-content>
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-no-padding">
+        <ion-col size="12" class="ion-no-padding">
+          <!-- Menu List -->
+          <ion-list class="ion-no-padding">
+              <ion-item lines="none" *ngFor="let p of appPages;  let i=index;" [routerDirection]="'root'" (click)="levelNav1('navX'+i)" [ngClass]="{active: isNav1Displayed('navX'+i)}">
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
+                <ul style="list-style: none; padding-left: 0px; margin-left: -18px;margin-bottom: 0px;">
+                <!-- <li> -->
+                  <ion-item lines="none" >
+                    <ion-icon [name]="isNav1Displayed('navX'+i) ? 'chevron-down-outline' : 'chevron-forward-outline'" class="icon icon-small" slot="start"></ion-icon>
+                    <ion-label>
+                      <h1 class="text-size-xs">{{p.name}}</h1>
+                      <!-- {{p.name}} -->
+                    </ion-label>
+                  </ion-item>
+                <!-- </li> -->
+                <div *ngIf="isNav1Displayed('navX'+i)" class="nav1" style="padding-left: 0px;">
+                  <ion-menu-toggle translate auto-hide="false" >
+                  <ion-item lines="none" *ngFor="let i1 of p.nav; let j=index;" (click)="levelNav2('navX'+i+'navX'+j)" [ngClass]="{active: isNav2Displayed('navX'+i+'navX'+j)}" (click)="openPage(i1)">
+                      <i slot="start" class="icon {{i1.icon}} icon-small"></i>
+                      <ion-label>
+                        <h1 class="text-size-xs">{{i1.title}}</h1>
+                      </ion-label>
+                  </ion-item>
+                </ion-menu-toggle>
+                </div>
+                </ul>
 
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
+              </ion-item>
 
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
+            <ion-menu-toggle auto-hide="false">
+              <ion-item lines="none"  (click)="logout()">
+                <i slot="start" class="icon icon-power icon-small"></i>
+                <ion-label>
+                  <h1 class="text-size-xs">Logout</h1>
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  <ion-footer style="background-color: #f2f2f2">
+    <ion-row>
+      <ion-col size="4" style="text-align:center">
+        <img width="100%" src="assets/imgs/logo/logo.PNG" item-start>
+      </ion-col>
+    </ion-row>
+  </ion-footer>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>

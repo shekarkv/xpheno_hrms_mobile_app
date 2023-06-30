@@ -24,3 +24,55 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+ion-toast.custom-toast {
+    --background: #020219;
+    --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+    --color: #f5f3f9;   
+    --button-color: #ee1717;
+  }
+      
+  ion-toast.custom-toast::part(message) {
+    font-style: normal;
+  }
+  ion-toast.custom-toast::part(icon) { 
+	color: black;
+    background: red;
+    border-radius: 14px;
+}
+ 
+  ion-toast.custom-toast::part(button) {
+    border-left: 1px solid #d2d2d2;
+    color: #f5f3f9;
+    font-size: 16px; --button-color: #ee1717;
+  }
+
+  /* Success Toast*/
+  ion-toast.custom-success-toast {
+    --background: #bdea75cc;
+    --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+    --color: #0a0e02;   
+    --button-color: #1791ee;
+  }
+      
+  ion-toast.custom-success-toast::part(message) {
+    font-style: normal;
+  }
+  ion-toast.custom-success-toast::part(icon) { 
+	  color: black;
+    background: rgb(139, 229, 48);
+    border-radius: 14px;
+  }
+ 
+  ion-toast.custom-success-toast::part(button) {
+    border-left: 1px solid #d2d2d2;
+    color: #ff11b0;
+    font-size: 16px; --button-color: #17c3ee;
+  }
+
+
+  ion-datetime { 
+    &:not(.datetime-placeholder) {
+      color: black;
+    }
+  }

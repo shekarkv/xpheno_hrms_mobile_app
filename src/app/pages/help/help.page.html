@@ -1,0 +1,131 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="ViewHelp()">
+        <ion-icon name="swap-vertical-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Help</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-padding">
+    <ion-row>
+      <ion-col size="12">
+        <!-- <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-label class="text-size-xs" position="floating">
+            Employee</ion-label>
+            <ion-input type="text" [(ngModel)]="employee" readonly></ion-input>
+         </ion-item> -->
+
+         <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-label class="text-size-xs" position="floating">
+            Date</ion-label>
+          <ion-icon slot="end" name="calendar"></ion-icon> 
+            <ion-input
+              value="{{this.date | date: 'dd/MM/YYYY'}}"
+              id="date"
+              class="ion-text-left"
+            ></ion-input>
+            <ion-modal trigger="date" show-backdrop="false">
+              <ng-template> 
+                <ion-datetime
+                  [showDefaultButtons]="true" 
+                  presentation="date"
+                  [(ngModel)]="date" 
+                ></ion-datetime> 
+              </ng-template>
+            </ion-modal>
+        </ion-item> 
+
+        <!-- <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-label class="text-size-xs" position="floating">
+            Ticket No</ion-label>
+            <ion-input type="text" [(ngModel)]="ticket_no" readonly></ion-input>
+         </ion-item> -->
+
+         <!-- <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-label class="text-size-xs" position="floating">
+            Query Type</ion-label>
+            <ion-select class="text-size-xs" multiple="false" interface="action-sheet" [(ngModel)]="query_type">
+              <ion-select-option >HR</ion-select-option>
+              <ion-select-option >IT System</ion-select-option>
+          </ion-select>
+         </ion-item> -->
+
+         <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-label class="text-size-xs" position="floating">  
+            Query Type</ion-label>
+            <!-- <ion-input type="text" [(ngModel)]="city_category"></ion-input> -->
+            <ion-select [(ngModel)]="query_type"  interface="action-sheet">
+              <ion-select-option *ngFor="let data of look_up_value_list" [value]="data.internal_code">{{data.value}}
+              </ion-select-option>
+            </ion-select>
+         </ion-item>
+
+
+         <!-- <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-label class="text-size-xs" position="floating">  
+            Category</ion-label>
+            <ion-select [(ngModel)]="category"  interface="action-sheet">
+              <ion-select-option *ngFor="let data of look_up_value_list" [value]="data.internal_code">{{data.value}}
+              </ion-select-option>
+            </ion-select>
+         </ion-item> -->
+
+         <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-label class="text-size-xs" position="floating">
+            Description</ion-label>
+            <ion-textarea type="text" [(ngModel)]="description" ></ion-textarea>
+         </ion-item>
+
+         <ion-item class="text-size-xs ion-text-wrap ion-text-center">
+          Attachment
+          <ion-fab horizontal="end" *ngIf="this.items_clicked == false">
+            <ion-fab-button size="small">
+              <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-list side="start">
+              <ion-fab-button (click)="clickImage();">
+                <ion-icon name="camera-sharp"></ion-icon>
+              </ion-fab-button>
+              <ion-fab-button  (click)="selectFromGallery();">
+                <ion-icon name="images-sharp"></ion-icon>
+              </ion-fab-button>
+              <ion-fab-button (click)="fileFunc()">
+                <ion-icon name="document-attach-sharp"></ion-icon>
+              </ion-fab-button>
+            </ion-fab-list>
+          </ion-fab>
+        </ion-item> 
+
+         <ion-grid *ngIf="this.attachment != ''">
+          <ion-row>
+            <ion-col>
+              <ion-avatar>
+                <img src="{{this.attachmentBase64}}" *ngIf=" this.file_type == 'img'" (click)="chooseImage()">
+                <img src="assets/imgs/file.png" *ngIf=" this.file_type == 'doc'" (click)="OpenNativeFileDownload(this.attachmentBase64)"> 
+              </ion-avatar>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+
+      <ion-col size="12" class="ion-text-end">
+        <ion-button *ngIf="this.saveClicked == false" shape="round"  class="button-round ion-margin-top"
+        fill="outline" (click)="SubmitHelp();">
+        <ion-icon name="save-outline"></ion-icon>&nbsp;
+        Submit
+        </ion-button>
+        <ion-button *ngIf="this.saveClicked == true" shape="round" class="button-round ion-margin-top"
+        fill="outline"> Submitting&nbsp;&nbsp;
+          <ion-spinner name="bubbles"></ion-spinner>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

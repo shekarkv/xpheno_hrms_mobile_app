@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Trip List</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="GoBack();">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="ion-text-center" *ngFor="let data of trip_list;let id = index;">
+          <ion-card-content class="ion-text-left"(click)="getTripData(data);" >
+            <span class="span-small font-bold">{{data.trip_name}} </span>
+              <b>Started From <span class="span-small font-bold"> {{data.start_location}}</span>
+                On {{data.trip_start}} At {{data.trip_start_time}}
+              </b>
+              <b *ngIf="data.status">, Ended At <span class="span-small font-bold"> {{data.end_location}}</span>
+                On {{data.trip_end}} At {{data.trip_end_time}} 
+                - <span class="span-small font-bold"> Distance: </span> {{data.tot_distance}} KM
+              </b><br>
+              <h4 *ngIf="data.status" style="font-size:smaller;">Start Address: {{data.start_address}}</h4>
+              <h4 *ngIf="data.status" style="font-size:smaller;"><br>End Address: {{data.end_address}}</h4>
+          </ion-card-content> 
+        </ion-card>
+        <h3 class="ion-text-center" *ngIf="trip_list == undefined || trip_list ==''">No Data Found!</h3>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-modal *ngIf="isModalOpen" [isOpen]="isModalOpen" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel();">
+              <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>{{this.trip_name}} ({{this.trip_start}}) </ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="openMap()" [strong]="true">Map</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+          <ion-grid class="ion-no-padding">
+            <ion-row>
+              <ion-col size="12">
+                <ion-card class="ion-text-center" *ngFor="let s of pit_stops;let id = index;">
+                  <ion-card-content class="ion-text-left">
+                    <b>{{s.stop_type}} <span class="span-small font-bold">{{s.stop_name}}</span>
+                      On {{s.stop_date}} At {{s.stop_time}}   
+                    </b> 
+                    <b *ngIf="s.stop_distance > 0">
+                      - <span class="span-small font-bold"> Distance: </span> {{s.stop_distance}} KM
+                    </b> 
+                    <h4 style="font-size:smaller;">{{s.stop_address}}</h4>
+                    <!-- <span class="span-small font-bold">Status : </span> <b>{{data.status}}</b> <br> -->
+                  </ion-card-content> 
+                </ion-card>
+                <ion-card>
+                  <ion-card-content>
+                    <b><span class="span-small font-bold">Total Distance: </span> {{this.total_dist}} KM</b>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

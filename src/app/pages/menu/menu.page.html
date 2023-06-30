@@ -1,0 +1,70 @@
+<ion-menu contentId="content" >
+      
+  <ion-header class="background-size" [ngStyle]="{'background-image': 'url(' + headerMenuItem.background + ')'}">
+    <ion-avatar>
+      <img src="{{this.photo}}" alt=""> <br/>
+    </ion-avatar> 
+      <ion-item class="transparent ion-text-center" lines="none">
+        <ion-label class="ion-text-center" style="padding-top: 12%">  
+            <div class="clearfix"></div>
+            {{profile_name}}
+        </ion-label>
+      </ion-item>
+  </ion-header> 
+  <!-- Content -->
+  <ion-content>
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-no-padding">
+        <ion-col size="12" class="ion-no-padding">
+          <!-- Menu List -->
+          <ion-list class="ion-no-padding">
+              <ion-item lines="none" *ngFor="let p of appPages;  let i=index;" [routerDirection]="'root'" (click)="levelNav1('navX'+i)" [ngClass]="{active: isNav1Displayed('navX'+i)}">
+
+                <ul style="list-style: none; padding-left: 0px; margin-left: -18px;margin-bottom: 0px;">
+                <!-- <li> -->
+                  <ion-item lines="none" >
+                    <ion-icon [name]="isNav1Displayed('navX'+i) ? 'chevron-down-outline' : 'chevron-forward-outline'" class="icon icon-small" slot="start"></ion-icon>
+                    <ion-label>
+                      <h1 class="text-size-xs">{{p.name}}</h1>
+                      <!-- {{p.name}} -->
+                    </ion-label>
+                  </ion-item>
+                <!-- </li> -->
+                <div *ngIf="isNav1Displayed('navX'+i)" class="nav1" style="padding-left: 0px;">
+                  <ion-menu-toggle translate auto-hide="false" >
+                  <ion-item lines="none" *ngFor="let i1 of p.nav; let j=index;" (click)="levelNav2('navX'+i+'navX'+j)" [ngClass]="{active: isNav2Displayed('navX'+i+'navX'+j)}" (click)="openPage(i1)">
+                      <i slot="start" class="icon {{i1.icon}} icon-small"></i>
+                      <ion-label>
+                        <h1 class="text-size-xs">{{i1.title}}</h1>
+                      </ion-label>
+                  </ion-item>
+                </ion-menu-toggle>
+                </div>
+                </ul>
+
+              </ion-item>
+
+            <ion-menu-toggle auto-hide="false">
+              <ion-item lines="none"  (click)="logout()">
+                <i slot="start" class="icon icon-power icon-small"></i>
+                <ion-label>
+                  <h1 class="text-size-xs">Logout</h1>
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  <ion-footer style="background-color: #f2f2f2">
+    <ion-row>
+      <ion-col size="4" style="text-align:center">
+        <img width="100%" src="assets/imgs/logo/logo.PNG" item-start>
+      </ion-col>
+    </ion-row>
+  </ion-footer>
+</ion-menu>
+
+<ion-router-outlet id="content" main></ion-router-outlet>

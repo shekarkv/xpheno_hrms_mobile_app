@@ -1,0 +1,26 @@
+:host{
+    --cs-size-avatar: 120px;
+  }
+  
+  ion-card {
+    // Settings Avatar
+    ion-avatar {
+      height: var(--cs-size-avatar);
+      width: var(--cs-size-avatar);
+      margin: 0 auto;
+    }
+  }
+  
+  ion-button {
+    .active {
+      color: var(--cs-icon-color-primary, #00c0e8) !important;
+    }
+  }
+
+  .camera-btn {
+    height: 36px;
+    width: 36px;
+    margin-top: 0%;
+    margin-left: 60%;
+}
+  

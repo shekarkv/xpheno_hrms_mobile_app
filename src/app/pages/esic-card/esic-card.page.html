@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="DownloadESICCardPDF();">
+        <ion-icon name="document-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>ESIC Card</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="no-box-shadow transparent">
+    <!-- <img width="100%" src="assets/imgs/insurance.png" icon-large> -->
+    <img width="100%" src="{{this.doc_url}}">
+  </ion-card>
+</ion-content>

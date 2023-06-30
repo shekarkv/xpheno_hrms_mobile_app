@@ -1,0 +1,14 @@
+:host{
+    --cs-size-avatar: 120px;
+  }
+  
+  ion-card {
+    // Settings Avatar
+    ion-avatar {
+      height: var(--cs-size-avatar);
+      width: var(--cs-size-avatar);
+      margin: 0 auto;
+    }
+  }
+  
+  

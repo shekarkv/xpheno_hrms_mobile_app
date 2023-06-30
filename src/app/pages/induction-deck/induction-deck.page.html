@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Induction Deck</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <h3 class="ion-text-center" *ngIf="deck_arr == ''">No Data Found!</h3>
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="ion-text-center" *ngFor="let data of deck_arr;let id = index;">
+          <ion-card-content class="ion-text-left">  
+            <span class="span-small font-bold">Description : </span> <b>{{data.description}}</b> <br>
+            <span class="span-small font-bold">Download : </span>  <ion-icon name="download" size="large" color="black" slot="end" 
+            (click)="DownloadInductionDeckPDF(data.link);"></ion-icon> 
+
+            <!-- <ion-col size="12" class="ion-text-end">
+              <ion-button style="float: right;" color="danger" class="button-round ion-margin" (click)="chooseAction(data.internal_code);" fill="outline">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button> 
+
+              <ion-button style="float: right;" shape="round" class="button-round ion-margin" fill="outline" (click)="GoHelpDeskPage()"> 
+                <ion-icon name="backspace-outline"></ion-icon>
+              </ion-button>
+            </ion-col> -->
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

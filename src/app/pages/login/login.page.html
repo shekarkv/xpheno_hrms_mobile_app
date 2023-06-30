@@ -1,0 +1,70 @@
+<!-- <ion-header>
+  <ion-toolbar class="box-shadow">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>X-Connect</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col class="ion-padding" size="12" size-md="10" push-md="1">
+        <!-- <ion-button fill="clear" class="clear-button ion-float-right"
+        (click)="onSkipFunc()">Skip</ion-button> -->
+        <div clearfix></div>
+        <!-- <ion-img [src]="data.logo"></ion-img> -->
+        <ion-img src="assets/imgs/logo/logo.PNG" style="width: 45%;"></ion-img>
+      </ion-col>
+
+      <ion-col class="ion-padding" size="12" size-md="10" push-md="1">
+        <!---Input field username-->
+        <ion-item class="ion-no-padding input">
+          <ion-label  class="text-size-xs" position="floating">
+            <ion-icon name="person-sharp"></ion-icon> Username
+          </ion-label>
+          <ion-input required type="text" [(ngModel)]="username">
+          </ion-input>
+          <ion-icon *ngIf="!isUsernameValid" class="icon-small" name="remove-circle">
+          </ion-icon>
+        </ion-item> 
+        <!---Input field password-->
+        <ion-item class="ion-no-padding input">
+          <ion-label class="text-size-xs" position="floating">
+            <ion-icon name="key-sharp"></ion-icon> Password
+          </ion-label>
+          <ion-input required type="password" [(ngModel)]="password">
+          </ion-input>
+          <ion-icon *ngIf="!isPasswordValid" class="icon-small" name="remove-circle">
+          </ion-icon> 
+        </ion-item>
+      </ion-col>
+
+      <ion-col class="ion-padding" size="12" size-md="10" push-md="1"> 
+        <ion-row class="ion-padding-top ion-margin-top">
+          <ion-col size="12" class="ion-no-padding ion-align-self-start">
+            <!---Login ion-button-->
+            <ion-button class="button-round ion-text-capitalize" expand="full" shape="round"
+            fill="outline" (click)="onLoginFunc()">
+            <ion-icon name="log-in-sharp"></ion-icon>&nbsp; login</ion-button>
+
+            <ion-button *ngIf="this.loginClicked == true"class="button-round ion-text-capitalize" expand="full" shape="round"
+            fill="outline" >
+              Verifying&nbsp;&nbsp;<ion-spinner name="bubbles"></ion-spinner>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      
+      <ion-col class="ion-padding" size="12" size-md="10" push-md="1"> 
+        <ion-button class="button-round ion-text-capitalize" expand="full" shape="round"
+        fill="outline" (click)="SendForgotPassword();">
+          Forgot Password?
+        </ion-button>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

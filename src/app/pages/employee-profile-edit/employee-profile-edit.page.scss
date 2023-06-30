@@ -1,0 +1,22 @@
+:host{
+    --cs-size-avatar: 80px;
+  }
+  
+  ion-card {
+    // Settings Avatar
+    ion-avatar {
+      height: var(--cs-size-avatar); 
+      width: var(--cs-size-avatar);
+      margin: 0 auto;
+    }
+  }
+  
+  ion-button {
+    .active {
+      color: var(--cs-icon-color-primary, #00c0e8) !important;
+    }
+  }
+  
+  ion-popover {
+    --width: 320px;
+}

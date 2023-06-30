@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Approvals</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <h3 class="ion-text-center" *ngIf="module_list == ''">No Data Found!</h3>  
+  <ion-list>
+    <ion-item *ngFor="let data of module_list; let id = index"
+      (click)="openModule(data.system_module_table_name,data.module_id,data.display_module_name);">
+      <ion-icon [ngStyle]={color:data.color}  style='font-size: 18px;' name={{data.icon_name}}></ion-icon>  &nbsp; <ion-label style="font-weight: normal;font-size: 13px;;">{{data.display_module_name}}</ion-label>
+      <ion-badge color="warning">{{data.count}}</ion-badge>
+    </ion-item>
+  </ion-list>
+
+
+  <!-- <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="ion-text-center"  *ngFor="let data of module_list; let id = index" (click)="openModule(data.system_module_table_name,data.module_id,data.display_module_name);">
+          <ion-card-content class="ion-text-left" > 
+            <ion-label style="font-weight: normal;">{{data.display_module_name}}</ion-label>
+            <ion-badge color="warning">{{data.count}}</ion-badge>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid> --> 
+</ion-content>

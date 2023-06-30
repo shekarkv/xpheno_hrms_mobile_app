@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Resignation Request</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-padding">
+    <ion-row>
+      <ion-col size="12">
+
+        <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-label class="text-size-xs" position="floating">
+            Date</ion-label>
+          <ion-icon slot="end" name="calendar"></ion-icon> 
+            <ion-input
+              value="{{ d_date | date: 'dd/MM/YYYY' }}"
+              id="d_date"
+              class="ion-text-left"
+            ></ion-input>
+            <ion-modal trigger="d_date" show-backdrop="false">
+              <ng-template> 
+                <ion-datetime
+                  [showDefaultButtons]="true" 
+                  presentation="date"
+                  [(ngModel)]="d_date" 
+                ></ion-datetime> 
+              </ng-template>
+            </ion-modal>
+        </ion-item> 
+        
+        <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-label class="text-size-xs" position="floating">
+            Request No</ion-label>
+            <ion-input type="text" [(ngModel)]="request_no" readonly></ion-input>
+         </ion-item>
+
+         <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-label class="text-size-xs" position="floating">
+            Last Working Date</ion-label>
+          <ion-icon slot="end" name="calendar"></ion-icon> 
+            <ion-input
+              value="{{ last_working_day | date: 'dd/MM/YYYY' }}"
+              id="last_working_day"
+              class="ion-text-left" 
+            ></ion-input>
+            <ion-modal trigger="last_working_day" show-backdrop="false">
+              <ng-template> 
+                <ion-datetime
+                  [showDefaultButtons]="true"
+                  presentation="date"
+                  [(ngModel)]="last_working_day" 
+                ></ion-datetime>
+              </ng-template>
+            </ion-modal> 
+        </ion-item> 
+
+        <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-label class="text-size-xs" position="floating">
+            Reason For Exit</ion-label>
+            <ion-input type="text" [(ngModel)]="reason_for_exit" ></ion-input>
+         </ion-item>
+
+      </ion-col>
+      <ion-col size="12" class="ion-text-end">
+        <ion-button *ngIf="this.saveClicked == false" shape="round"  class="button-round ion-margin-top"
+        fill="outline" (click)="SubmitHelp();">
+        <ion-icon name="save-outline"></ion-icon>&nbsp;
+        Submit
+        </ion-button>
+        <ion-button *ngIf="this.saveClicked == true" shape="round" class="button-round ion-margin-top"
+        fill="outline"> Submitting&nbsp;&nbsp;
+          <ion-spinner name="bubbles"></ion-spinner>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

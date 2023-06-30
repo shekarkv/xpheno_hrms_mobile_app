@@ -1,7 +1,8 @@
 {
   "name": "xpheno",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }

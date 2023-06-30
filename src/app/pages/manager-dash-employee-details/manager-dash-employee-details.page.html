@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="!employee">
+      <ion-button color="light">
+        <ion-icon name="create"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Employee Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-grid  *ngFor="let data of details">
+  <!-- <ion-col size="12"> -->
+    <ion-card class="ion-padding ion-text-center">
+      <ion-avatar> 
+        <ion-img src="{{data.photo}}">{{data.name}}</ion-img> 
+      </ion-avatar>  
+     
+      <ion-card-content>
+        <ion-label position="stacked"></ion-label>
+        <h1 class="text-size-lg" >{{data.name}}</h1> 
+        <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+          <ion-icon name="mail-sharp"></ion-icon>&nbsp; {{data.email}}
+        </h2>
+        <h2 class="text-size-xs ion-text-wrap">
+          <ion-icon name="call-sharp"></ion-icon>&nbsp; {{data.mobile}}
+        </h2>   
+      </ion-card-content>
+    </ion-card>
+  <!-- </ion-col> -->
+
+  <ion-card class="ion-padding" id="emp_personal_card">
+    <ion-card-content class="ion-text-center">
+      <span class="span-medium">Personal Details</span>
+          <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+              Father Name : {{data.father_name}}
+          </h2> 
+          <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+            Address : {{data.ec_address}}
+          </h2>
+          <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+            Emergency Ph No: {{data.ec_phone}}
+          </h2> 
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="ion-padding" id="emp_basic_card">
+    <ion-card-content class="ion-text-center">
+      <span class="span-medium">Basic Details</span>
+      <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+         PAN : {{data.pan_number}}</h2>
+      <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+        Aadhaar : {{data.aadhar_number}}</h2>
+      <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+        EISC : {{data.eisc_number}}</h2>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="ion-padding" id="emp_basic_card">
+    <ion-card-content class="ion-text-center">
+      <span class="span-medium">Attendance Data</span>
+      <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+        Leaves Taken : {{data.leave_taken}}</h2>
+      <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+        Days Checked in : {{data.no_of_days_checked_in}}</h2>
+      <h2 class="text-size-xs ion-text-wrap ion-padding-top">
+        Attendance Regularization : {{data.no_of_days_regularization}}</h2>
+    </ion-card-content>
+  </ion-card>
+  
+</ion-grid>
+</ion-content>

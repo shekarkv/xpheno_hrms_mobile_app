@@ -1,0 +1,58 @@
+.background-size {
+    height: 200px;
+    position: relative;
+    background-color: var(--cs-text-primary, #ffffff);
+    background-blend-mode: luminosity;
+  
+    &::before {
+      content: "";
+      display: block;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      position: absolute;
+      pointer-events: none;
+      mix-blend-mode: var(--cs-mode-image);
+      background: var(--cs-gradient-linear);
+    }
+  
+    ion-item {
+      position: absolute;
+      top: 50%;
+      // left: 50%;
+      // transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100px;
+      --color: var(--cs-text-primary, #ffffff);
+  
+    }
+  
+      img {
+        position: absolute; 
+        top: 120%;
+        left: 250%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+      }
+      
+  }
+
+.nav1, 
+.nav2, 
+.nav3 {
+  list-style: none;
+  padding: 10px;
+  li {
+      padding: 10px 0 10px 10px;
+      border-top: solid 1px #ccc;
+  }
+}
+
+ion-item { 
+  top: 50%; 
+  width: 100%; 
+  --color: var(--cs-text-primary, #ffffff);
+
+}
+  

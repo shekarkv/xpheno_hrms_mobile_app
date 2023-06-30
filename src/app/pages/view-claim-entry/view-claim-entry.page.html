@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Claim Entry</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <h3 class="ion-text-center" *ngIf="claim_data == ''">No Data Found!</h3>
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="ion-text-center" *ngFor="let data of claim_data;let id = index;">
+          <ion-card-content class="ion-text-left">
+            <span class="span-small font-bold">Date : </span> <b>{{data.date}}</b> <br>
+            <span class="span-small font-bold">Entry No : </span> <b>{{data.entry_no}}</b> <br>
+            <span class="span-small font-bold">Employee : </span> <b>{{data.txt_ref_schema_employee}}</b> <br>
+            <span class="span-small font-bold">Client : </span> <b>{{data.txt_ref_schema_client}}</b> <br>
+            <span class="span-small font-bold">Claim Type : </span> <b>{{data.claim_type}}</b> <br>
+            <span class="span-small font-bold">City Category : </span> <b>{{data.city_category_name}}</b> <br>
+            <span class="span-small font-bold">Start Date : </span> <b>{{data.start_date}}</b> <br>
+            <span class="span-small font-bold">End Date : </span> <b>{{data.end_date}}</b> <br>
+            <span class="span-small font-bold">Amount : </span> <b>{{data.amount}}</b> <br>
+            <div *ngIf="data.status_type; then approveBlock else rejectBlock"></div>
+              <ng-template #approveBlock> <h4 style="color:green;" class="text-size-s"><b>{{data.status_type}}</b></h4></ng-template>
+              <ng-template #rejectBlock> <h4 style="color:red;" class="text-size-s"><b>{{data.status_type_no}}</b></h4></ng-template>
+
+            <ion-col size="12" class="ion-text-end" *ngIf="!data.status_type;">
+              <ion-button style="float: right;"  color="danger" class="button-round ion-margin" (click)="chooseAction(data.internal_code);"
+                fill="outline"> 
+                <ion-icon name="trash-outline"></ion-icon>
+             </ion-button>
+
+             <ion-button style="float: right;" shape="round" class="button-round ion-margin"  (click)="EditClaimEntry(data.internal_code)"
+             fill="outline"> 
+              <ion-icon name="create-sharp"></ion-icon>
+             </ion-button>
+             <!-- <ion-button  shape="round" class="button-round ion-margin-top"
+             fill="outline">
+             <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+             Cancel
+            </ion-button>  -->
+            </ion-col>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

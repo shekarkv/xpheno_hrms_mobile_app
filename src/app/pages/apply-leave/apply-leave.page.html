@@ -1,0 +1,176 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="nextpage()">
+        <ion-icon name="swap-vertical-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Employee Leave</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> -->
+
+  <ion-grid class="ion-padding"> 
+    <ion-row> 
+      <ion-col size="12">
+        <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-label class="text-size-xs" position="floating">
+            Reason</ion-label>
+            <ion-input type="text" [(ngModel)]="reason"></ion-input> 
+         </ion-item>
+
+        <ion-item (click)="getLeaveReferenceData();" class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-label class="text-size-xs" position="floating">
+            Leave Type</ion-label>
+            <ion-input type="text" [(ngModel)]="txt_ref_schema_leave_type"></ion-input>
+            <ion-icon slot="end" color="black" name="search" size="small" class="button-round ion-margin-top"
+            fill="outline">
+            </ion-icon>
+         </ion-item>
+
+         <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-label class="text-size-xs" position="floating">
+            Leave Balance </ion-label>
+            <ion-input type="number" [(ngModel)]="leave_balance"  readonly></ion-input>
+         </ion-item> 
+        
+
+         <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-icon slot="start" name="calendar"></ion-icon> 
+            <ion-input
+              value="{{ from_date | date: 'dd/MM/YYYY' }}"
+              id="from_date" placeholder=" From Date"
+              class="ion-text-left"  (ionChange)="GetDateDifference();" 
+            ></ion-input>
+            <ion-modal trigger="from_date" show-backdrop="false">
+              <ng-template> 
+                <ion-datetime
+                  [showDefaultButtons]="true" 
+                  presentation="date"
+                  [(ngModel)]="from_date" 
+                ></ion-datetime>
+              </ng-template>
+            </ion-modal>
+            <ion-label class="text-size-xs">
+             2nd Half Day</ion-label>
+            <ion-toggle slot="end" (ionChange)="GetDateDifference();" [(ngModel)]="from_half_day">
+            </ion-toggle>  
+        </ion-item> 
+
+        <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-icon slot="start" name="calendar"></ion-icon> 
+            <ion-input
+              value="{{ to_date | date: 'dd/MM/YYYY' }}"
+              id="to_date" placeholder=" To Date"
+              class="ion-text-left"
+              (ionChange)="GetDateDifference();"
+            ></ion-input>
+            <ion-modal trigger="to_date" show-backdrop="false">
+              <ng-template> 
+                <ion-datetime
+                  [showDefaultButtons]="true"  
+                  presentation="date"
+                  [(ngModel)]="to_date" 
+                ></ion-datetime>
+              </ng-template>
+            </ion-modal>
+            <ion-label class="text-size-xs">
+             1st Half Day</ion-label>
+            <ion-toggle slot="end" (ionChange)="GetDateDifference();" [(ngModel)]="to_half_day">
+            </ion-toggle>  
+        </ion-item> 
+
+        <!-- <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-icon slot="end" name="calendar"></ion-icon> 
+          <ion-label class="text-size-xs" position="floating">
+            To Date</ion-label> 
+            <ion-input
+              value="{{ to_date | date: 'dd/MM/YYYY' }}"
+              id="to_date" placeholder="To Date"
+              class="ion-text-left" 
+            ></ion-input>
+            <ion-modal trigger="to_date" >
+              <ng-template> 
+                <ion-datetime
+                  presentation="date" size="cover"
+                  [(ngModel)]="to_date" 
+                  [showDefaultButtons]="true" 
+                ></ion-datetime>
+              </ng-template>
+            </ion-modal>
+        </ion-item>  -->
+
+        <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+          <ion-label class="text-size-xs" position="floating"> 
+            No Of Days </ion-label>
+            <ion-input type="number" [(ngModel)]="no_of_days"  (ionChange)="GetDateDifference();" readonly></ion-input>
+         </ion-item> 
+
+         <ion-item class="text-size-xs ion-text-wrap ion-text-center">
+          Attachment
+          <ion-fab horizontal="end" *ngIf="this.items_clicked == false">
+            <ion-fab-button size="small">
+              <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-list side="start">
+              <ion-fab-button (click)="clickImage();">
+                <ion-icon name="camera-sharp"></ion-icon>
+              </ion-fab-button>
+              <ion-fab-button  (click)="selectFromGallery();">
+                <ion-icon name="images-sharp"></ion-icon>
+              </ion-fab-button>
+              <ion-fab-button (click)="fileFunc()">
+                <ion-icon name="document-attach-sharp"></ion-icon>
+              </ion-fab-button>
+            </ion-fab-list>
+          </ion-fab>
+        </ion-item> 
+
+         <ion-grid *ngIf="this.attachment != ''">
+          <ion-row>
+            <ion-col>
+              <ion-avatar>
+                <img src="{{this.attachmentBase64}}" *ngIf=" this.file_type == 'img'" (click)="chooseImage()">
+                <img src="assets/imgs/file.png" *ngIf=" this.file_type == 'doc'" (click)="OpenNativeFileDownload(this.attachmentBase64)"> 
+              </ion-avatar>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <!-- <ion-grid *ngIf="this.view_file_name != ''">
+          <ion-row>
+            <ion-col>
+                <h2>{{this.view_file_name}}</h2>
+                <ion-icon (click)="deleteAttachmentFile()" name="trash">
+              </ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid> -->
+
+        </ion-col>
+
+        <ion-col size="12" class="ion-text-end">
+          <ion-button *ngIf="this.saveClicked == false" shape="round"  class="button-round ion-margin-top"
+          fill="outline" (click)="SaveApplyLeave();">
+          <ion-icon name="save-outline"></ion-icon>&nbsp;
+          Apply
+          </ion-button>
+          <ion-button *ngIf="this.saveClicked == true" shape="round" class="button-round ion-margin-top"
+          fill="outline"> Applying&nbsp;&nbsp;
+            <ion-spinner name="bubbles"></ion-spinner>
+          </ion-button>
+        </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

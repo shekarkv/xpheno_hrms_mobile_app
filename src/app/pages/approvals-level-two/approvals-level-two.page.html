@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal();">
+        <ion-icon style='color:white' slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="display_module_name == 'Attendance Regularization' || display_module_name == 'Apply Leave'" (click)="ApproveAll();">  
+      Approve All &nbsp;
+    </ion-buttons> 
+    <ion-title>{{display_module_name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- <ion-list> -->
+    <!-- <ion-item *ngFor="let main of module_data;" (click)="openModule(main.data.approval_history_int_code,main.data.module_int_code)"> -->
+      <!-- <ion-label style="font-weight: normal;">
+        <p style="color: black;" text-wrap *ngFor="let data of main.data.details;"><span
+            style="color: cadetblue;">{{data.label}}</span> :
+          <span>{{data.value}}</span></p>
+      </ion-label>  -->
+      <!-- <ion-icon name="chevron-forward-outline"></ion-icon> -->
+    <!-- </ion-item>
+  </ion-list> -->
+
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="ion-text-center"  *ngFor="let main of module_data;" >
+          <ion-card-content class="ion-text-left" > 
+              <ion-label style="font-weight: normal;">
+                <p style="color: black;" text-wrap *ngFor="let data of main.data.details;">
+                  <span class="span-small font-bold">{{data.label}}</span> :
+                  <span>{{data.value}}</span>
+                </p>
+              </ion-label>  
+          </ion-card-content>
+        
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <ion-button shape="round"  fill="outline" (click)="approveRejectRecord('Approved', main.data.approval_history_int_code, main.data.module_int_code,'Approved');" color="success">
+                <ion-icon name="checkmark-circle"></ion-icon>&nbsp;
+                Approve
+              </ion-button>
+            </ion-col>
+            <ion-col class="ion-text-center">
+              <ion-button shape="round"  fill="outline" (click)="rejectRecord('Rejected', main.data.approval_history_int_code, main.data.module_int_code);" color="danger">
+                <ion-icon name="close-circle"></ion-icon>&nbsp;
+                Reject
+              </ion-button>
+            </ion-col>
+            <ion-col class="ion-text-center">
+              <ion-button *ngIf="third_level_required" shape="round"  fill="outline" (click)="openModule(main.data.approval_history_int_code,main.data.module_int_code)">
+                <ion-icon name="list-circle-outline"></ion-icon>&nbsp;
+                Details
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid> 
+
+</ion-content>

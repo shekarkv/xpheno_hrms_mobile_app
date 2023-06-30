@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="DownloadMothlyPayslipPDF();">
+        <ion-icon name="document-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Payslip</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-padding"> 
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="ion-padding ion-text-center " style="margin:0%">
+          <span class="span-small"><b>Month</b></span> 
+          <ion-input style="background-color:#eeeeef;" value="{{ d_date | date: 'MMMM-YYYY' }}"  id="d_date"  class="ion-text-center">
+            <ion-icon slot="end" size="medium" style="color:black" name="calendar"></ion-icon> 
+          </ion-input>
+            <ion-popover trigger="d_date" show-backdrop="false">
+              <ng-template> 
+                <ion-datetime
+                  [showDefaultButtons]="true" 
+                  presentation="month-year"
+                  [(ngModel)]="d_date" 
+                  (ionChange)="GetPayslipDetails();"
+                ></ion-datetime>
+              </ng-template>
+            </ion-popover>
+        </ion-card> 
+        <br>
+        
+
+        <ion-card class="ion-padding ion-text-left " style="margin:0%" >
+          <ion-row  *ngFor="let data of header;">
+            <ion-col size="2" style="color: black;">{{data.label}}</ion-col>
+            <ion-col size="1" style="color: black;">:</ion-col>
+            <ion-col><span class="span-small font-bold ">{{data.value}}</span><br/></ion-col>
+          </ion-row>
+        </ion-card>
+        <br>
+
+        <h3 class="ion-text-center" *ngIf="earn == null || ded_arr == null ">No Data Found!</h3>
+
+        <ion-card *ngIf="show_slips" style="margin:0%" class="payslip">
+          <!-- <ion-card-content class="ion-text-left" *ngFor="let data of ded_arr;"> -->
+            <h4 style="color:black"><b>Earnings</b></h4>
+            <ion-label >
+              <ion-grid [fixed]="true">
+                <ion-row *ngFor="let data of earn;">
+                  <ion-col class="ion-text-left " ><b>{{data.comp}}</b></ion-col>
+                  <ion-col class="ion-text-right" style="color:black" ><b>{{data.original_amount}}</b></ion-col>
+                  <!-- <ion-col class="bor"><span class="span-small font-bold" style="float:right;" >{{data.original_amount}}</span></ion-col> -->
+                </ion-row>
+                <ion-row style="background-color:rgb(229, 240, 238);margin: 0px;">
+                  <ion-col class="ion-text-left text-size-l" style="color:black" ><b>Total Earnings</b></ion-col>
+                  <ion-col class="ion-text-right text-size-m"><span class="span-small font-bold ">{{this.total_earning}}</span></ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-label>
+          <!-- </ion-card-content> -->
+        </ion-card>
+
+        <br>
+        <ion-card *ngIf="show_slips" style="margin:0%" class="payslip">
+          <!-- <ion-card-content class="ion-text-left" *ngFor="let data of ded_arr;"> -->
+            <h4 style="color:black;"><b>Deductions</b></h4>
+            <ion-label>
+              <ion-grid [fixed]="true">
+                <ion-row *ngFor="let data of ded_arr;">
+                  <ion-col class="ion-text-left "><b>{{data.comp}}</b></ion-col>
+                  <ion-col class="ion-text-right " style="color:black" ><b>{{data.total}}</b></ion-col>
+                  <!-- <ion-col class="bor"><span class="span-small font-bold" style="float:right;" >{{data.total}}</span></ion-col> -->
+                </ion-row>
+                <ion-row style="background-color: rgb(229, 240, 238);margin: 0px;">
+                  <ion-col class="ion-text-left text-size-m" style="color:black"><b>Total Deductions</b></ion-col>
+                  <ion-col class="ion-text-right text-size-m"><span class="span-small font-bold ">{{this.total_deduction}}</span></ion-col>
+                  <!-- <ion-col class="ion-text-right bor" style="color:black"><b>{{this.summary.total_deduction}}</b></ion-col> -->
+                </ion-row>
+              </ion-grid>
+            </ion-label>
+          <!-- </ion-card-content> -->
+        </ion-card>
+
+        <br>
+        <ion-card *ngIf="show_slips" style="margin:0%" class="payslip">
+          <!-- <ion-card-content class="ion-text-left" *ngFor="let data of ded_arr;"> -->
+            <ion-label>
+              <ion-grid [fixed]="true">
+                <ion-row style="background-color: rgb(229, 240, 238);margin: 0px;">
+                  <ion-col class="ion-text-left " style="color:black"><b>Net Pay</b></ion-col>
+                  <ion-col class="ion-text-right "><span class="span-small font-bold ">{{this.net_pay}}</span></ion-col>
+                  <!-- <ion-col class="ion-text-right bor" style="color:black"><b>{{this.summary.total_deduction}}</b></ion-col> -->
+                </ion-row>
+              </ion-grid>
+            </ion-label>
+          <!-- </ion-card-content> -->
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

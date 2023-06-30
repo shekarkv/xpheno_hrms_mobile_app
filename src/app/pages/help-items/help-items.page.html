@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal();">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Help Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+<h3 class="ion-text-center" *ngIf="help_details == ''"> <br> No Data Found!</h3>
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="ion-text-center"  *ngFor="let data of help_details;" >
+          <ion-card-content class="ion-text-left">
+            <ion-label style="font-weight: normal;">
+              <p style="color: black;" text-wrap>
+              <span class="span-small font-bold">{{data.h_date}}</span> <br>
+              {{data.h_description}} 
+              </p>
+            </ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col> 
+    </ion-row>
+  </ion-grid>
+</ion-content>

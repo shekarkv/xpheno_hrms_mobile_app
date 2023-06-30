@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Leaves</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <h3 class="ion-text-center" *ngIf="leave_list == ''">No Data Found!</h3>
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="ion-text-center" *ngFor="let data of leave_list;let id = index;">
+          <ion-card-content class="ion-text-left" >
+            <span class="span-small font-bold">From Date : </span> <b>{{data.from_date}}</b> <br>
+            <span class="span-small font-bold">To Date : </span> <b>{{data.to_date}}</b> <br>
+            <span class="span-small font-bold">Leave Type : </span> <b>{{data.txt_ref_schema_leave_type}}</b> <br>
+            <span class="span-small font-bold">No Of Days : </span> <b>{{data.no_of_days}}</b> <br>
+            <span class="span-small font-bold">Reason : </span> <b>{{data.reason}}</b> <br>
+            <span class="span-small font-bold">Approval status : </span> <b>{{data.status}}</b> <br>
+            <span class="span-small font-bold" *ngIf="data.attachment != ''">Attachment : 
+              <b><a target="new" (click)="DownloadleavePDF(data.attachment);">Download</a></b>&nbsp; 
+              <ion-icon name="cloud-download-sharp"></ion-icon>
+            </span><br>
+            <ion-col size="12" class="ion-text-end">
+              <ion-button style="float: right;" color="danger" class="button-round ion-margin" (click)="chooseAction(data.internal_code);" fill="outline">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+
+              <ion-button style="float: right;" shape="round" class="button-round ion-margin" fill="outline" (click)="GoApplyLeavePage()"> 
+                <ion-icon name="backspace-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

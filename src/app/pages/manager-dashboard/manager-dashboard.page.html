@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{type}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12"> 
+        <ion-list>
+          <h3 class="ion-text-center" *ngIf="details == '' || details == null">No Data Found!</h3>
+          <ion-reorder-group disabled="false"  *ngFor="let data of details">
+            <ion-item lines="none" (click)="OpenEmployeeDetails(data.emp_int_code);">
+              <!--Avatar-->
+              <ion-avatar slot="start">
+                <img src="{{data.photo}}">
+              </ion-avatar>   
+              <!--Title and Subtitle-->
+              <ion-label>
+                <h2 class="text-size-lg">{{data.employee}}</h2>
+                <h4 class="text-size-sm">{{data.in_time}} </h4>   
+                <h4 class="text-size-sm" *ngIf="data.check_in_within_location == 'No'" style="color:red"><b>Checked In outside location</b></h4>
+                <h4 class="text-size-sm" *ngIf="data.check_out_within_location == 'No'" style="color:red"><b>Checked Out outside location</b></h4>
+              </ion-label>
+
+            </ion-item> 
+          </ion-reorder-group> 
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

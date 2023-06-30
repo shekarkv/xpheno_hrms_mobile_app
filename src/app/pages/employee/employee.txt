@@ -1,0 +1,312 @@
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { AlertController, ModalController, NavController, Platform, ActionSheetController } from '@ionic/angular';
+import { AppCommon } from 'src/app/app.common';
+import { ActivatedRoute, Router } from '@angular/router';
+// import { EmployeeProfileEditPage } from '../employee-profile-edit/employee-profile-edit.page';
+import { PhotoViewer } from '@awesome-cordova-plugins/photo-viewer/ngx';
+import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
+import { FilePath } from '@awesome-cordova-plugins/file-path/ngx';
+import { File } from '@awesome-cordova-plugins/file/ngx';
+import { FileTransfer, FileTransferObject } from '@awesome-cordova-plugins/file-transfer/ngx';
+
+declare let cordova: any;
+
+@Component({
+  selector: 'app-employee',
+  templateUrl: './employee.page.html',
+  styleUrls: ['./employee.page.scss'],
+})
+export class EmployeePage implements OnInit {
+
+  loginData: any;
+  login_real_name: any;
+  gedit_int_code: any;
+  login_email: any;
+  mobile_no: any;
+  designation: any;
+  email: any;
+  gender: any;
+  father_name: any;
+  pr_mother_name: any;
+  marital_status: any;
+  blood_group: any;
+  nationality: any;
+  pr_address: any;
+  address: any;
+  photo: any = 'assets/imgs/avatar/dp.png';
+  attachment_path: any = '';
+  name: any = '';
+  // doc_type: any;
+  // file_name: any;
+  code: any;
+  module: any = 'employee';
+  saveClicked: boolean;
+  // camera: any;
+  internal_code: any;
+  aadhar_number: any;
+  pan_number: any;
+  empData: any;
+  attachmentFiles: any;
+  emp_int_code: any;
+  fw_candidate_int_code: any;
+  fw_login_email: any;
+  employee: string;
+  emp_personal_card: any;
+  emp_id_card: any;
+  emp_info_card: any;
+  in_flag: boolean;
+  uan_number: any;
+  eisc_number: any;
+  pf_number: any;
+  bank_account: any;
+  g_doj: any;
+  details: any;
+  
+  constructor(
+    public alertController: AlertController,
+    public navCtrl: NavController, 
+    public http: HttpClient,
+    public appCommon: AppCommon,
+    public modalController: ModalController,
+    private route: Router,
+    // private browserTab: BrowserTab,
+    private photoViewer: PhotoViewer,
+    private plt: Platform,
+    private camera: Camera,
+    private filePath: FilePath,
+    private file: File,
+    private transfer: FileTransfer,
+    public actionSheetController: ActionSheetController,
+    private activatedroute: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.loginData = JSON.parse(localStorage.getItem('loginData'));
+    this.empData = JSON.parse(localStorage.getItem('employeeData'));
+
+    this.login_real_name = this.loginData['login_real_name'];
+    // this.fw_login_email = this.loginData['fw_login_email'];
+    this.fw_login_email = this.loginData['email'];
+    this.mobile_no = this.loginData['mobile_no']; 
+    this.loginData['fw_emp_int_code'];
+    this.fw_candidate_int_code = this.loginData['fw_candidate_int_code']
+
+    this.email = this.empData['email'];
+    this.father_name = this.empData['father_name']; 
+    this.blood_group = this.empData['blood_group'];
+    this.pr_address = this.empData['pr_address']; 
+    this.aadhar_number = this.empData['aadhar_number'];
+    this.pan_number = this.empData['pan_number']; 
+    this.photo = this.loginData['profile_photo_url'];   
+    this.code = this.loginData['fw_emp_code'];  
+    this.uan_number = this.empData['uan_number']; 
+    this.eisc_number = this.empData['eisc_number']; 
+    this.pf_number = this.empData['pf_number']; 
+    this.bank_account = this.empData['bank_account'];  
+    this.g_doj = this.empData['g_doj']; 
+    this.employee = this.loginData['fw_emp_int_code'];
+    if(this.employee == '0')
+    {
+      this.in_flag = true  
+    };
+  }
+
+  clearFields() {  
+   this.gedit_int_code= '';
+   this.photo = '';
+   this.ngOnInit();
+ }
+
+ nextpage() {
+  this.route.navigate(['/profile-changes']);
+}
+
+// async EditProfile() {
+
+//   const modal = await this.modalController.create({
+//     component: EmployeeProfileEditPage,
+//     cssClass: 'my-custom-modal-css',
+//     componentProps: {
+//       "module_id": "89",
+//       "table_name": "employee",
+//       "gedit_int_code": this.gedit_int_code,
+//       "user_id": this.loginData['login_int_code'],
+//       'login_counter': this.loginData['login_counter'],
+//     }
+//   });
+
+//   modal.onDidDismiss().then((dataReturned) => {
+//     this.gedit_int_code = dataReturned['data']['internal_code']
+//     console.log('Data Received:', this.gedit_int_code);
+//     // this.editRecord();
+//   });
+
+//   return await modal.present();
+
+// }
+
+
+  async uploadProPic() {
+
+    if (this.plt.is('ios')) {
+      const actionSheet = await this.actionSheetController.create({
+        header: 'Select Image Source',
+        buttons: [
+          {
+            text: 'Camera',
+            icon: 'camera',
+            handler: () => {
+              this.takePicture(this.camera.PictureSourceType.CAMERA);
+            }
+          },
+          {
+            text: 'Photos from Gallery',
+            icon: 'images',
+            handler: () => {
+              this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+            }
+          },
+          {
+            text: 'Cancel',
+            role: 'cancel'
+          }
+        ]
+      });
+      await actionSheet.present();
+    }
+    else {
+      const actionSheet = await this.actionSheetController.create({
+        buttons: [
+          {
+            text: 'Camera',
+            icon: 'camera',
+            handler: () => {
+              this.takePicture(this.camera.PictureSourceType.CAMERA);
+            }
+          },
+          {
+            text: 'Photos from Gallery',
+            icon: 'images',
+            handler: () => {
+              this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+            }
+          },
+          {
+            text: 'Cancel',
+            role: 'cancel'
+          }
+        ]
+      });
+
+      await actionSheet.present();
+    }
+  }
+
+  takePicture(a) {
+    let options =
+    {
+      quality: 100,
+      sourceType: a,
+      saveToPhotoAlbum: false,
+      correctOrientation: true,
+      allowEdit: true,
+    };
+    this.camera.getPicture(options)
+      .then((newImage) => { 
+            if (this.plt.is('android')) {
+              this.filePath.resolveNativePath(newImage)
+                .then(filePath => {
+                  let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
+                  let currentName = newImage.substring(newImage.lastIndexOf('/') + 1, newImage.lastIndexOf('?'));
+                  this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+                });
+            }
+            else {
+              console.log("newImage -> "+newImage);
+              var correctPath = newImage.substr(0, newImage.lastIndexOf('/') + 1);
+              var currentName = newImage.substr(newImage.lastIndexOf('/') + 1);
+
+              this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+            } 
+      }, function (error) {
+        console.log(error);
+      });
+  }
+
+  private copyFileToLocalDir(namePath, currentName, newFileName) {
+    this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(success => {
+      this.attachmentFiles = newFileName;
+
+      this.updateProfilePicture(this.attachmentFiles);
+
+    }, error => {
+      this.appCommon.presentToast('Error while storing file.');
+    });
+  }
+
+  private createFileName() {
+    var d = new Date(),
+      n = d.getTime(),
+      newFileName = n + ".jpg";
+    return newFileName;
+  }
+
+  updateProfilePicture(filePath) {
+
+    const url = this.appCommon.baseAppUrl+'UpdateProfilePictureFromMobile';
+
+    //File for Upload
+    var targetPath = this.pathForImage(filePath);
+
+    let postData = {
+      'cand_int_code': this.fw_candidate_int_code
+    }
+    // File name only
+    var filename = filePath;
+
+    var header = new Headers();
+    header.append('Content-Type', 'application/x-www-form-urlencoded');
+    header.append('Content-type', 'application/json');
+
+    let options = {
+      fileKey: 'fileToUpload',
+      fileName: filename,
+      chunkedMode: false,
+      mimeType: 'multipart/form-data',
+      params: postData
+    }
+
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    fileTransfer.upload(targetPath, encodeURI(url), options)
+      .then(data => {
+        console.log("data -> "+JSON.stringify(data));
+        var response = JSON.parse(data.response);
+        this.appCommon.presentToast(response.data);
+ 
+
+      }, err => {
+        this.appCommon.presentToast("error" + JSON.stringify(err));
+      });
+  }
+
+  public pathForImage(img) {
+    if (img === null) {
+      return '';
+    } else {
+      return cordova.file.dataDirectory + img;
+    }
+  }
+
+  viewProfilePicture(path) {
+      this.photoViewer.show(path, '', { share: false });
+  }
+
+  handleRefresh(event) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.target.complete();
+      this.ngOnInit();
+    }, 2000);
+  };
+
+}

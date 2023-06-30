@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Calendar</ion-title>
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="openCalModal()">
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment [(ngModel)]="calendar.mode">
+    <ion-segment-button value="month">
+      <ion-label>Month</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="week">
+      <ion-label>Week</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="day">
+      <ion-label>Day</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+ 
+  <!-- <ion-row>
+    <ion-col size="6">
+      <ion-button (click)="createRandomEvents()" expand="block" fill="outline">
+        Add random events
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button (click)="removeEvents()" expand="block" fill="outline">
+        Remove all events
+      </ion-button>
+    </ion-col>
+  </ion-row> -->
+ 
+  <ion-row>
+    <ion-col size="2">
+      <ion-button fill="clear" (click)="back()">
+        <ion-icon size="medium" name="chevron-back-circle-sharp"></ion-icon>
+      </ion-button>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/home"></ion-back-button>
+      </ion-buttons>
+    </ion-col>
+ 
+    <ion-col size="8" class="ion-text-center">
+      <h2>{{ viewTitle }}</h2>
+    </ion-col>
+ 
+    <ion-col size="2">
+      <ion-button fill="clear" (click)="next()">
+        <ion-icon size="medium" name="chevron-forward-circle-sharp"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <br>
+  <ng-template #template  >
+     
+        {{this.textDescription}}<br>
+        
+  </ng-template>
+ 
+  <calendar
+    [eventSource]="eventSource"
+    [calendarMode]="calendar.mode"
+    [currentDate]="calendar.currentDate"
+    (onEventSelected)="onEventSelected($event)"
+    (onTitleChanged)="onViewTitleChanged($event)"
+    (onTimeSelected)="onTimeSelected($event)"
+    [startHour]="startHour"
+    [endHour]="endHour"
+    [step]="step"
+    [startingDayWeek]="startingDayWeek" 
+    [showEventDetail]="false"
+    (onCurrentDateChanged) = "onCurrentDateChanged($event)"
+    [monthviewEventDetailTemplate]="template"
+  >
+  </calendar>
+  
+</ion-content>

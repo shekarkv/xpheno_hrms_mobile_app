@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal();">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{display_module_name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card style="padding: 0;margin:1%;background-color: rgb(255, 253, 250);">
+    <ion-card-content class="ion-text-left" > 
+      <ion-label style="font-weight: normal;">
+        <p style="color: black;" text-wrap *ngFor="let data of header_data;">
+          <b>{{data.label}}</b> :
+          <span class="span-small font-bold">{{data.value}}</span>
+         
+        </p>
+      </ion-label>  
+    </ion-card-content>
+  </ion-card>
+
+  <h2 class="span-medium" style="text-align:center;">Details</h2>
+
+  <ion-card style="padding: 0;margin:1%;">
+    <ion-card-content style="padding: 0;margin:0;">
+      <ion-list style="padding: 0;margin:0;">
+        <ion-item *ngFor="let main of items_data;" style="padding: 0;margin:0;">
+          <ion-label style="font-weight: normal;">
+            <p *ngFor="let data of main.details;" style="color: black;" text-wrap>
+              <b>{{data.label}}</b> :
+              <span *ngIf="data.value_a == ''" class="span-small font-bold">{{data.value}}</span>
+              <span *ngIf="data.value_a != ''" class="span-small font-bold"><a target="new" href="{{data.value_a}}">Download</a>
+                &nbsp; <ion-icon name="cloud-download-sharp"></ion-icon>
+              </span>
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+     <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button  shape="round" fill="outline" color="success" (click)="approveRejectRecordFromLevelThree('Approved','Approved');">
+            <ion-icon  name="checkmark-circle"></ion-icon>&nbsp; Approve
+          </ion-button>
+        </ion-col>
+        <ion-col class="ion-text-center">
+          <ion-button  shape="round" fill="outline" color="danger" (click)="RejectRecordFromLevelThree('Reject');">
+            <ion-icon  name="checkmark-circle"></ion-icon>&nbsp; Reject
+          </ion-button>
+        </ion-col>
+      </ion-row>
+  </ion-card>
+     
+</ion-content>
+
+<!-- <ion-footer> -->
+
+
+
+<!-- </ion-footer> -->
