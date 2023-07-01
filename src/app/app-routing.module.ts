@@ -234,6 +234,10 @@ const routes: Routes = [
     path: 'weekly-off',
     loadChildren: () => import('./pages/weekly-off/weekly-off.module').then( m => m.WeeklyOffPageModule)
   },
+  {
+    path: 'view-weekly-off',
+    loadChildren: () => import('./pages/view-weekly-off/view-weekly-off.module').then( m => m.ViewWeeklyOffPageModule)
+  },
   // {
   //   path: 'upcoming-employee-leave',
   //   loadChildren: () => import('./pages/').then( m => m.UpcomingEmployeeLeavePageModule)
