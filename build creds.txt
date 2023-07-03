@@ -7,3 +7,4 @@ password -> xpheno@123
 
 -change version code and name in build.gradle inside android/app
 -update version package.json too
+ 
