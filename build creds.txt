@@ -1,5 +1,5 @@
 
-** "C:\Program Files\Java\jdk1.8.0_271\bin\jarsigner" -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore my-release-key.keystore xpheno-release-v1.0.23.aab XPHENO
+* "C:\Program Files\Java\jdk1.8.0_271\bin\jarsigner" -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore my-release-key.keystore xpheno-release-v1.0.23.aab XPHENO
 
 cd android && ./gradlew bundle
 
