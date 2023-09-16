@@ -244,7 +244,7 @@ export class EmployeeListPage implements OnInit {
   back() {
     this.route.navigate(['/home'])
     .then(() => {
-      window.location.reload();
+      // window.location.reload();
     });
   }
 

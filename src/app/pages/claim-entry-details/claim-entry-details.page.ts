@@ -155,7 +155,8 @@ export class ClaimEntryDetailsPage implements OnInit {
       this.appCommon.presentToast("Please Enter Amount")
       return false;
     }
-    if (this.amount > this.max_amount) {
+    // if (this.amount > this.max_amount) {
+    if (parseFloat(this.amount) > parseFloat(this.max_amount)){
       this.appCommon.presentToast("Please Enter Amount Less Than " + this.max_amount)
       return false;
     }

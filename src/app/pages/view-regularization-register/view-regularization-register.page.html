@@ -29,6 +29,15 @@
                 <!-- <span class="span-small">{{data.status}}</span> -->
               </b>
             </h2>
+            <ion-col size="12" >
+              <ion-button style="float: left;" color="danger" class="button-round ion-margin" (click)="chooseAction(data.internal_code);" fill="outline">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+
+              <ion-button style="float: left;" shape="round" class="button-round ion-margin" fill="outline" (click)="GoBack()"> 
+                <ion-icon name="backspace-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
           </ion-card-content>
         </ion-card>
       </ion-col>

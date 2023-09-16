@@ -108,10 +108,14 @@ export class HomePage {
     setTimeout(() => {
       // Any calls to load data go here
       event.target.complete();
-      window.location.reload();
-      // this.ngOnInit();
+      // window.location.reload();
+      this.ngOnInit();
     }, 2000);
   };
+
+  ionViewWillEnter(){
+    this.ngOnInit();
+  }
 
   constructor(
     public menuCtrl: MenuController,
