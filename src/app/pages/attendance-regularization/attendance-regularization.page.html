@@ -46,15 +46,14 @@
                     id="in_time"
                     class="ion-text-left" 
                   ></ion-input>
-                  <ion-popover trigger="in_time" show-backdrop="false">
+                  <ion-modal trigger="in_time" show-backdrop="false">
                     <ng-template> 
                       <ion-datetime
                         [showDefaultButtons]="true"
-                        presentation="time"
                         [(ngModel)]="in_time" 
                       ></ion-datetime>
                     </ng-template>
-                  </ion-popover> 
+                  </ion-modal> 
                 </ion-item> 
 
                 <ion-item class="text-size-xs ion-text-wrap ion-text-left">
@@ -66,16 +65,37 @@
                       id="out_time"
                       class="ion-text-left" 
                     ></ion-input>
-                    <ion-popover trigger="out_time" show-backdrop="false">
+                    <ion-modal trigger="out_time" show-backdrop="false">
                       <ng-template> 
                         <ion-datetime
                           [showDefaultButtons]="true"
-                          presentation="time" 
                           [(ngModel)]="out_time" 
                         ></ion-datetime>
                       </ng-template>
-                    </ion-popover> 
+                    </ion-modal> 
                   </ion-item> 
+
+                  <!-- <ion-item class="text-size-xs ion-text-wrap ion-text-left">
+                    <ion-label class="text-size-xs" position="floating">
+                      Time</ion-label> 
+                      <ion-icon slot="end" name="time"></ion-icon> 
+                      <ion-input
+                        value="{{ out_time | date: 'HH:mm' }}"
+                        id="out_time"
+                        class="ion-text-left" 
+                      ></ion-input>
+                      <ion-popover trigger="out_time" show-backdrop="false">
+                        <ng-template> 
+                          <ion-datetime
+                            [showDefaultButtons]="true"
+                            presentation="date" 
+                            [(ngModel)]="out_time" 
+                          ></ion-datetime>
+                        </ng-template>
+                      </ion-popover> 
+                    </ion-item>  -->
+
+             
 
             <ion-item class="text-size-xs ion-text-wrap ion-text-left">
               <ion-label class="text-size-xs" position="floating">

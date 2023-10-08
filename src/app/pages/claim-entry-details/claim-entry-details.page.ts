@@ -67,6 +67,7 @@ export class ClaimEntryDetailsPage implements OnInit {
   cut_off_date: any;
   current_date: any;
   isEnabled: boolean = false;
+  isEnabledkm: boolean = false;
 
   constructor(private modalController: ModalController,
     public http: HttpClient,
@@ -155,8 +156,8 @@ export class ClaimEntryDetailsPage implements OnInit {
       this.appCommon.presentToast("Please Enter Amount")
       return false;
     }
-    // if (this.amount > this.max_amount) {
-    if (parseFloat(this.amount) > parseFloat(this.max_amount)){
+    if (parseFloat(this.amount) > parseFloat(this.max_amount)) {
+      // alert(this.amount + 'max' + this.max_amount);
       this.appCommon.presentToast("Please Enter Amount Less Than " + this.max_amount)
       return false;
     }
@@ -383,6 +384,13 @@ export class ClaimEntryDetailsPage implements OnInit {
             {
               this.amount =  response['data']['max_amount'];
               this.isEnabled = true;
+              this.isEnabledkm = false;
+            }
+            if(response['data']['limit_type'] == 'Per KM')
+            {
+              this.amount =  response['data']['amount'];
+              this.isEnabled = true;
+              this.isEnabledkm = false;
             }
             // this.bills_required= response['data']['bills_required'];
             // this.place_required= response['data']['place_required'];
@@ -441,7 +449,8 @@ export class ClaimEntryDetailsPage implements OnInit {
 
           if(this.kilometers= response['data']['tot_distance'])
           {
-            this.isEnabled = true;
+            this.isEnabledkm = true;
+            this.isEnabled = false;
           }
             this.cut_off_date= response['data']['cut_off_date'];  
            if(response['data']['count'] == 1)
